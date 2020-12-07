@@ -1,0 +1,128 @@
+
+
+export const arrayNotes = [
+{
+    note:'F',
+    color:'white'
+},
+{
+    note:'FSharp',
+    color:'black'
+},
+{
+    note:'G',
+    color:'white'
+},
+{
+    note:'GSharp',
+    color:'black'
+},
+{
+    note:'A',
+    color:'white'
+},
+{
+    note:'ASharp',
+    color:'black'
+},
+{
+    note:'B',
+    color:'white'
+},
+{
+    note:'C',
+    color:'white'
+},
+{
+    note:'CSharp',
+    color:'black'
+},
+{
+    note:'D',
+    color:'white'
+},
+{
+    note:'DSharp',
+    color:'black'
+},
+{
+    note:'E',
+    color:'white'
+},
+{
+    note:'F2',
+    color:'white'
+},
+{
+    note:'FSharp2',
+    color:'black'
+},
+{
+    note:'G2',
+    color:'white'
+},
+{
+    note:'GSharp2',
+    color:'black'
+},
+{
+    note:'A2',
+    color:'white'
+},
+{
+    note:'ASharp2',
+    color:'black'
+},
+{
+    note:'B2',
+    color:'white'
+},
+{
+    note:'C2',
+    color:'white'
+},
+{
+    note:'CSharp2',
+    color:'black'
+},
+{
+    note:'D2',
+    color:'white'
+},
+{
+    note:'DSharp2',
+    color:'black'
+},
+{
+    note:'E2',
+    color:'white'
+},
+{
+    note:'F3',
+    color:'white'
+},
+{
+    note:'FSharp3',
+    color:'black'
+},
+{
+    note:'G3',
+    color:'white'
+},
+{
+    note:'GSharp3',
+    color:'black'
+},
+{
+    note:'A3',
+    color:'white'
+},
+{
+    note:'ASharp3',
+    color:'black'
+},
+{
+    note:'B3',
+    color:'white'
+}
+];
