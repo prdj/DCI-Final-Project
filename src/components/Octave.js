@@ -3,25 +3,22 @@ import {arrayNotes} from './Format';
 import styled from 'styled-components'
 import Note from './Note';
 
+
 const PianoBody = styled.div`
-      
-    margin: 20vh auto;
-    height:265px;
-    width: 1190px;
+    display: flex; 
+    margin: 40vh 10vw;
+    height: 10vh;
+    width: 80vw;
     border-radius: 5px;
     background-color: ${props => props.primary ? "#FFA630" : "#6c2506"};
     `;
     
     const Wrapper = styled.div`
-    display:flex;
-    align-self: auto | flex-start | flex-end | center | baseline | stretch;
-    }
-   
-    width: 1200px; 
-    align-items: center;
-    justify-content:center;
-    height:50vh;
-    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border:2px solid black;
+    position:relative;
     `;
 
     const Pianosecundary = styled(PianoBody)`
@@ -40,7 +37,7 @@ const Octave = ()=> (
    </div>
    </Wrapper>
    </PianoBody>
-   </section> 
+   </section>
   
    <section>
    <PianoBody primary>

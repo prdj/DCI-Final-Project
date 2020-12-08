@@ -2,51 +2,83 @@
 
 export const arrayNotes = [
 {
-    note:'F',
+    note:'A0',
     color:'white'
 },
 {
-    note:'FSharp',
+    note:'ASharp0',
     color:'black'
 },
 {
-    note:'G',
+    note:'B0',
     color:'white'
 },
 {
-    note:'GSharp',
+    note:'C1',
+    color:'white'
+},
+{
+    note:'CSharp1',
     color:'black'
 },
 {
-    note:'A',
+    note:'D1',
     color:'white'
 },
 {
-    note:'ASharp',
+    note:'DSharp1',
     color:'black'
 },
 {
-    note:'B',
+    note:'E1',
     color:'white'
 },
 {
-    note:'C',
+    note:'F1',
     color:'white'
 },
 {
-    note:'CSharp',
+    note:'FSharp1',
     color:'black'
 },
 {
-    note:'D',
+    note:'G1',
     color:'white'
 },
 {
-    note:'DSharp',
+    note:'GSharp1',
     color:'black'
 },
 {
-    note:'E',
+    note:'A1',
+    color:'white'
+},
+{
+    note:'ASharp1',
+    color:'black'
+},
+{
+    note:'B1',
+    color:'white'
+},
+{
+    note:'C2',
+    color:'white'
+},
+{
+    note:'CSharp2',
+    color:'black'
+},
+{
+    note:'D2',
+    color:'white'
+},
+{
+    note:'DSharp2',
+    color:'black'
+},
+{
+    note:'E2',
     color:'white'
 },
 {
@@ -78,23 +110,23 @@ export const arrayNotes = [
     color:'white'
 },
 {
-    note:'C2',
+    note:'C3',
     color:'white'
 },
 {
-    note:'CSharp2',
+    note:'CSharp3',
     color:'black'
 },
 {
-    note:'D2',
+    note:'D3',
     color:'white'
 },
 {
-    note:'DSharp2',
+    note:'DSharp3',
     color:'black'
 },
 {
-    note:'E2',
+    note:'E3',
     color:'white'
 },
 {
@@ -123,6 +155,198 @@ export const arrayNotes = [
 },
 {
     note:'B3',
+    color:'white'
+},
+{
+    note:'C4',
+    color:'white'
+},
+{
+    note:'CSharp4',
+    color:'black'
+},
+{
+    note:'D4',
+    color:'white'
+},
+{
+    note:'DSharp4',
+    color:'black'
+},
+{
+    note:'E4',
+    color:'white'
+},
+{
+    note:'F4',
+    color:'white'
+},
+{
+    note:'FSharp4',
+    color:'black'
+},
+{
+    note:'G4',
+    color:'white'
+},
+{
+    note:'GSharp4',
+    color:'black'
+},
+{
+    note:'A4',
+    color:'white'
+},
+{
+    note:'ASharp4',
+    color:'black'
+},
+{
+    note:'B4',
+    color:'white'
+},
+{
+    note:'C5',
+    color:'white'
+},
+{
+    note:'CSharp5',
+    color:'black'
+},
+{
+    note:'D5',
+    color:'white'
+},
+{
+    note:'DSharp5',
+    color:'black'
+},
+{
+    note:'E5',
+    color:'white'
+},
+{
+    note:'F5',
+    color:'white'
+},
+{
+    note:'FSharp5',
+    color:'black'
+},
+{
+    note:'G5',
+    color:'white'
+},
+{
+    note:'GSharp5',
+    color:'black'
+},
+{
+    note:'A5',
+    color:'white'
+},
+{
+    note:'ASharp5',
+    color:'black'
+},
+{
+    note:'B5',
+    color:'white'
+},
+{
+    note:'C6',
+    color:'white'
+},
+{
+    note:'CSharp6',
+    color:'black'
+},
+{
+    note:'D6',
+    color:'white'
+},
+{
+    note:'DSharp6',
+    color:'black'
+},
+{
+    note:'E6',
+    color:'white'
+},
+{
+    note:'F6',
+    color:'white'
+},
+{
+    note:'FSharp6',
+    color:'black'
+},
+{
+    note:'G6',
+    color:'white'
+},
+{
+    note:'GSharp6',
+    color:'black'
+},
+{
+    note:'A6',
+    color:'white'
+},
+{
+    note:'ASharp6',
+    color:'black'
+},
+{
+    note:'B6',
+    color:'white'
+},
+{
+    note:'C7',
+    color:'white'
+},
+{
+    note:'CSharp7',
+    color:'black'
+},
+{
+    note:'D7',
+    color:'white'
+},
+{
+    note:'DSharp7',
+    color:'black'
+},
+{
+    note:'E7',
+    color:'white'
+},
+{
+    note:'F7',
+    color:'white'
+},
+{
+    note:'FSharp7',
+    color:'black'
+},
+{
+    note:'G7',
+    color:'white'
+},
+{
+    note:'GSharp7',
+    color:'black'
+},
+{
+    note:'A7',
+    color:'white'
+},
+{
+    note:'ASharp7',
+    color:'black'
+},
+{
+    note:'B7',
     color:'white'
 }
 ];

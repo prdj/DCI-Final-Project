@@ -5,15 +5,15 @@ import styled from 'styled-components';
 
 
 const Black = styled.button`
-  width: 40px;
-  height: 130px;
+  width: 10px;
+  height: 35px;
   background: black;
   border: solid black 1px;
   border-radius: 1px;
 
   position: absolute;
   margin: 1px;
-  margin-left: -20px;
+  margin-left: -6px;
   :focus{
     outline: none;
   }
@@ -23,14 +23,14 @@ const Black = styled.button`
 `;
 
 const White = styled.button`
-  width: 60px;
-  height: 200px;
+  width: 15px;
+  height: 60px;
   background: white;
   border: solid white 2px;
   border-radius: 2px;
   box-shadow: 2px 3px #463f3a;
   margin: 1px;
-  margin-left: '-20px';
+  margin-left: '-10px';
   box-sizing: border-box;
   :focus{
     outline: none;

@@ -24,9 +24,8 @@ const soundEngine = function () {
       timeIndex += lengthNote;
     }
     KeyData.play('');
-  }
+  };
   
-
 
 const KeyData = new Howl ({
   src:['dist/assets/TransistorOrgan.mp3'],
@@ -66,12 +65,14 @@ function App() {
   })
 
   document.addEventListener('keydown', (e) => {
+    
     e.preventDefault()
     console.log(e)
     if (e.repeat) return
 
     //Mapping keyboard
     const key = e.key
+    
     // doing these below I give the pressed keyboard key the same index of the object audio key
     let howlerIndex= KEYBOARD_KEYS.indexOf(key)
     howlerIndex += 29;
