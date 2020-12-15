@@ -1,116 +1,98 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-
 const Next = styled.button`
   width: 30px;
   height: 20px;
-  top:-48px;
-  left:20px;
+  top: -48px;
+  left: 20px;
   background: yellow;
-  border: dashed red 7px;  
+  border: dashed red 7px;
   border-radius: 2px;
-  position:relative;
+  position: relative;
   box-sizing: border-box;
-  :focus{
+  :focus {
     outline: none;
   }
   :active {
     background: black;
   }
-  `;
-  
-  const Previous = styled.button`
+`;
+
+const Previous = styled.button`
   width: 30px;
   height: 21px;
-  left:10px;
-  top:-48px;
+  left: 10px;
+  top: -48px;
   background: yellow;
   border: dashed red 8px;
   border-radius: 2px;
   position: relative;
   box-sizing: border-box;
-  :focus{
+  :focus {
     outline: none;
   }
   :active {
     background: black;
   }
-  `;
+`;
 
-
-function KeyFunction () {
-
+function KeyFunction() {
   const test = {
-    octavePosition: [88,214,340,463,589,715,841,967],
-    boxSize: [200,200,200,200,200,200,200,100,100]
-  }
+    octavePosition: [88, 214, 340, 463, 589, 715, 841, 967],
+    boxSize: [200, 200, 200, 200, 200, 200, 200, 100, 100],
+  };
 
+  const [count, setCount] = useState(0);
+  console.log(count);
+  const [position, setPosition] = useState(88);
+  console.log(position);
+  const [boxSize, setboxSize] = useState(200);
+  console.log(boxSize);
 
-   const [count, setCount] = useState(1);
-   console.log(count)
-   const [position, setPosition] = useState(88);
-   console.log(position)
-   const [boxSize, setboxSize]= useState(200)
-   console.log(boxSize)
-
- 
-  
   const decrementOctave = () => {
-    if (count <= 1){
-        setCount(0)
-        setPosition(test.octavePosition[0]);
-        setboxSize(test.boxSize[0])
-    } else {
-        setCount(count - 1)
-        setPosition(test.octavePosition[count -1]);
-        setboxSize(test.boxSize[count -1])
+    if (count <= 1) {
+      setCount(0);
+      setPosition(test.octavePosition[0]);
+      setboxSize(test.boxSize[0]);
+    } else if (count > 1) {
+      setCount(count - 1);
+      setPosition(test.octavePosition[count - 1]);
+      setboxSize(test.boxSize[count - 1]);
     }
-    
-  
-  } 
+  };
   const incrementOctave = () => {
-  
-    if (count > 6){ 
-      console.log('I riched the end')
-            setCount(count)
-            setPosition(test.octavePosition[count]);
-            setboxSize(test.boxSize[count])
-    } else {
-          setCount(count + 1)
-            setPosition(test.octavePosition[count]);
-            setboxSize(test.boxSize[count])
-       
+    if (count > 7) {
+      console.log('I riched the end');
+      setCount(count);
+      setPosition(test.octavePosition[count]);
+      setboxSize(test.boxSize[count]);
+    } else if (count < 7) {
+      setCount(count + 1);
+      setPosition(test.octavePosition[count + 1]);
+      setboxSize(test.boxSize[count + 1]);
     }
-
-  } 
-
+  };
 
   const KeysOn = styled.div`
-  border: 3px solid blue;
-  width:${boxSize}px;
-  height:65px;
-  position:relative; 
-  top:-69px; 
-  left:${position}px;
-  z-index:10;
+    border: 3px solid blue;
+    width: ${boxSize}px;
+    height: 65px;
+    position: relative;
+    top: -69px;
+    left: ${position}px;
+    z-index: 10;
   `;
- 
-  
 
+  return (
+    <div>
+      <Previous type="button" onClick={decrementOctave} />
 
-    return(
-        
-        <div>
-            <Previous type="button" onClick={decrementOctave}/>
-            
-            <Next type="button"  onClick={incrementOctave}/>
-           
-            <KeysOn  className='slider'/>
-        </div>
-        
-           
-    );
+      <Next type="button" onClick={incrementOctave} />
+
+      <KeysOn className="slider" />
+    </div>
+  );
 }
 
 export default KeyFunction;
