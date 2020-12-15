@@ -28,7 +28,7 @@ const soundEngine = function () {
   
 
 const KeyData = new Howl ({
-  src:['dist/assets/TransistorOrgan.mp3'],
+  src:['./Piano01/piano-one.mp3'],
   onload() {
     console.log('Sound file has been loaded.');
     soundEngine()
@@ -45,12 +45,13 @@ function App() {
   //let KeyDataIndex = Object.keys(KeyData);
   /* let audio */
   
-  const KEYBOARD_KEYS = ['a','w','s','e','d','r','f','g','z','h','u','j','k','o','l','p','ö','ü','ä']
+  const KEYBOARD_KEYS = ['a','w','s','e','d','r','f','g','z','h','u','j','k','o','l','p','ö','ä']
 
   let KeyDataIndex= KEYBOARD_KEYS;
 
   document.addEventListener('mousedown', e => {
    const click = e.target.value
+   
    
    function playNote(){
     
@@ -59,10 +60,8 @@ function App() {
     audio.currentTime=0
     audio.play().catch(() => void 0); 
   }
-
-  playNote()
   
-  })
+});
 
   document.addEventListener('keydown', (e) => {
     
@@ -102,7 +101,7 @@ function App() {
   }
   if (keyboardKeysIndex > -1) playNote();
 
-})
+});
 
   document.addEventListener('keyup', (e) => {
 
@@ -131,8 +130,6 @@ function App() {
     if (keyboardKeysIndex > -1) stopNote();
 });
  
-
-  
 
 
   return ( 

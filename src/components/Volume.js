@@ -54,17 +54,17 @@ const Volume = () => {
 
         <Grid item xs> 
                 <Slider 
-                        style={{
-                            height:70,
-                            padding: '0 10px',
-                            color:"black",         
+                 style={{
+                  height:70,
+                  padding: '0 10px',
+                  color:"black",         
                         }}
-                        orientation="vertical"
-                        value={value} 
-                        valueLabelDisplay="auto"
-                        onChange={handleChange}
-                        aria-labelledby="vertical-slider"
-                        />
+                  orientation="vertical"
+                  value={value} 
+                  valueLabelDisplay="auto"
+                  onChange={handleChange}
+                  aria-labelledby="vertical-slider"
+                  />
         </Grid>
 
         <Grid item>

@@ -2,23 +2,25 @@ import React from 'react';
 import {arrayNotes} from './Format';
 import styled from 'styled-components'
 import Note from './Note';
+import KeyFunctions from './KeyFunctions'
 
 
-const PianoBody = styled.div`
-    display: flex; 
-    margin: 40vh 10vw;
-    height: 10vh;
-    width: 80vw;
+
+    const PianoBody = styled.div`
+    
+    margin: 40vh auto;
+    height: 11vh;
+    width: 1200px;
     border-radius: 5px;
     background-color: ${props => props.primary ? "#FFA630" : "#6c2506"};
     `;
     
     const Wrapper = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    border:2px solid black;
-    position:relative;
+    display:flex;
+    top:17px;
+    align-items: center;
+    justify-content:center;
+    position: relative;
     `;
 
     const Pianosecundary = styled(PianoBody)`
@@ -28,6 +30,7 @@ const PianoBody = styled.div`
 const Octave = ()=> (
 <div>
    <section>
+   
    <PianoBody>
    <Wrapper>
    <div>
@@ -36,6 +39,7 @@ const Octave = ()=> (
        ))}
    </div>
    </Wrapper>
+   <KeyFunctions></KeyFunctions>
    </PianoBody>
    </section>
   

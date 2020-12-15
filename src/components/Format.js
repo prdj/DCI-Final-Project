@@ -2,6 +2,43 @@
 
 export const arrayNotes = [
 {
+    note:'C0',
+    color:'white'
+},
+{
+    note:'CSharp0',
+    color:'black'
+},
+{
+    note:'D0',
+    color:'white'
+},
+{
+    note:'DSharp0',
+    
+    color:'black'
+},
+{
+    note:'E0',
+    color:'white'
+},
+{
+    note:'F0',
+    color:'white'
+},
+{
+    note:'FSharp0',
+    color:'black'
+},
+{
+    note:'G0',
+    color:'white'
+},
+{
+    note:'GSharp0',
+    color:'black'
+},
+{
     note:'A0',
     color:'white'
 },
@@ -347,6 +384,10 @@ export const arrayNotes = [
 },
 {
     note:'B7',
+    color:'white'
+},
+{
+    note: 'C8',
     color:'white'
 }
 ];

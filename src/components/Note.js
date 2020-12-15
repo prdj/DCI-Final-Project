@@ -10,7 +10,6 @@ const Black = styled.button`
   background: black;
   border: solid black 1px;
   border-radius: 1px;
-
   position: absolute;
   margin: 1px;
   margin-left: -6px;
