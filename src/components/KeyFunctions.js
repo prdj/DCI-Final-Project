@@ -40,12 +40,12 @@ const Previous = styled.button`
 function KeyFunction() {
   const test = {
     octavePosition: [88, 214, 340, 463, 589, 715, 841, 967],
-    boxSize: [200, 200, 200, 200, 200, 200, 200, 100, 100],
+    boxSize: [200, 200, 200, 200, 200, 200, 200, 146],
   };
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(2);
   console.log(count);
-  const [position, setPosition] = useState(88);
+  const [position, setPosition] = useState(340);
   console.log(position);
   const [boxSize, setboxSize] = useState(200);
   console.log(boxSize);
@@ -61,9 +61,19 @@ function KeyFunction() {
       setboxSize(test.boxSize[count - 1]);
     }
   };
+
+ document.addEventListener('keydown', e => {
+
+  e.preventDefault();
+      
+      if (e.key === 'ArrowLeft')
+        return  decrementOctave()  
+    });
+
+
   const incrementOctave = () => {
     if (count > 7) {
-      console.log('I riched the end');
+      console.log('the end');
       setCount(count);
       setPosition(test.octavePosition[count]);
       setboxSize(test.boxSize[count]);
@@ -73,6 +83,23 @@ function KeyFunction() {
       setboxSize(test.boxSize[count + 1]);
     }
   };
+
+ 
+  document.addEventListener('keydown', e => { 
+   e.preventDefault();
+   
+      
+      if (!e.repeat){
+        console.log(e.key)
+      }
+      
+      if (e.key === 'ArrowRight'){
+       
+        return  incrementOctave()
+      }
+        
+    });
+
 
   const KeysOn = styled.div`
     border: 3px solid blue;

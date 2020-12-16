@@ -6,7 +6,7 @@ import KeyFunctions from './KeyFunctions';
 
 const PianoBody = styled.div`
   margin: 40vh auto;
-  height: 11vh;
+  height: 79px;
   width: 1200px;
   border-radius: 5px;
   background-color: ${(props) =>

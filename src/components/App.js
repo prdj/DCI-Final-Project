@@ -1,14 +1,10 @@
 import React from 'react';
 import {Howl} from 'howler';
-import './Style.css';
-
-//import {arrayNotes} from './Format';
-
-
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import {arrayNotes} from './Format';
 import './Style.css';
 import '../scss/App.scss';
-
 
 import Homepage from "./Homepage";
 import Nav from "./Nav";
@@ -51,15 +47,23 @@ function App() {
 
   document.addEventListener('mousedown', e => {
    const click = e.target.value
-   
+   console.log(click)
+
    
    function playNote(){
+
+    let howlerIndexClick= arrayNotes.findIndex(x => x.note === click);
+    howlerIndexClick += 29;
+    console.log(howlerIndexClick)
+
+    KeyData.play(howlerIndexClick.toString());
     
-    const audio = new Audio(`hohner_keys/piano_${click}.wav`);
+    /* const audio = new Audio(`hohner_keys/piano_${click}.wav`);
     console.log(audio)
     audio.currentTime=0
-    audio.play().catch(() => void 0); 
+    audio.play().catch(() => void 0);  */
   }
+   playNote()
   
 });
 
@@ -89,8 +93,6 @@ function App() {
     (NoteForClass.value.length === 1) ? NoteForClass.classList.add('activeWhite') : NoteForClass.classList.add('activeBlack');
     //KeyData[key].audio.play()
     KeyData.play(howlerIndex.toString())
-   
-    
 
     /* audio = new Audio(`hohner_keys/piano_${finito.note}.wav`);
     console.log(audio)
