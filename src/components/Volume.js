@@ -65,10 +65,10 @@ const Volume = () => {
             color:"black",         
                   }}
             orientation="vertical"
-            value={volume}
+            value={volume} 
             valueLabelDisplay="auto"
             onChange={handleChange}
-            step={0.05}
+            step={0.01}
             min={0}
             max={1}
           />
