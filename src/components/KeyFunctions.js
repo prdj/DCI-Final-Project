@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Next = styled.button`
@@ -62,14 +62,6 @@ function KeyFunction() {
     }
   };
 
- document.addEventListener('keydown', e => {
-
-  e.preventDefault();
-      
-      if (e.key === 'ArrowLeft')
-        return  decrementOctave()  
-    });
-
 
   const incrementOctave = () => {
     if (count > 7) {
@@ -84,22 +76,27 @@ function KeyFunction() {
     }
   };
 
- 
-  document.addEventListener('keydown', e => { 
-   e.preventDefault();
-   
+
+  useEffect(()=>{
+  
+  document.addEventListener('keyup', (e) => {
+    console.log(e.key)
+
+    e.preventDefault();
+    if (!e.repeat)
       
-      if (!e.repeat){
-        console.log(e.key)
-      }
+      if (e.key === 'ArrowLeft')
+        return  decrementOctave()  
       
       if (e.key === 'ArrowRight'){
        
         return  incrementOctave()
       }
-        
     });
 
+  }, []);
+  
+  
 
   const KeysOn = styled.div`
     border: 3px solid blue;

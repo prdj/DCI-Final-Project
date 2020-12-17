@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +7,8 @@ import VolumeDown from '@material-ui/icons/VolumeDown';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import '../scss/App.scss';
 import './Style.css';
+import {SoundContext} from '../context/SoundContext';
+
 
 const useStyles = makeStyles({
   
@@ -28,11 +30,14 @@ const useStyles = makeStyles({
 
 
 const Volume = () => {
-    const [value, setValue] = React.useState(30);
+    /* const [value, setValue] = React.useState(30); */
+    let {volume, setVolume} = useContext(SoundContext);
+
     const classes = useStyles();
     const handleChange = (event, newValue) => {
-    setValue(newValue);
+   setVolume(newValue);
   };
+
     return(
      
       
@@ -60,10 +65,12 @@ const Volume = () => {
             color:"black",         
                   }}
             orientation="vertical"
-            value={value} 
+            value={volume}
             valueLabelDisplay="auto"
             onChange={handleChange}
-            aria-labelledby="vertical-slider"
+            step={0.05}
+            min={0}
+            max={1}
           />
         </Grid>
         <Grid item>

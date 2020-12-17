@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import SoundProvider from './context/SoundContext'
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <SoundProvider>
     <App />
-  </React.StrictMode>,
+  </SoundProvider>,
   document.getElementById('root')
 );
 
