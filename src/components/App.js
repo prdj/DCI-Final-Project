@@ -17,7 +17,7 @@ function App() {
 
   console.log({ volume });
 
-  //let KeyDataIndex = Object.keys(KeyData);
+  /* let KeyDataIndex = Object.keys(KeyData); */
   /* let audio */
 
   const KEYBOARD_KEYS = [
@@ -50,7 +50,7 @@ function App() {
   useEffect(() => {
     
     let sound = new Howl({
-      src: ["./Piano01/piano-one.mp3"],
+      src: ["./Piano01/piano-02.mp3"],
       onload() {
         console.log("Sound file has been loaded.");
         soundEngine();
@@ -63,9 +63,9 @@ function App() {
 
 
     const soundEngine = function () {
-      const lengthNote = 2000;
+      const lengthNote = 4000;
       let timeIndex = 0;
-      for (let i = 29; i <= 82; i++) {
+      for (let i = 0; i <= 96; i++) {
         sound["_sprite"][i] = [timeIndex, lengthNote];
         timeIndex += lengthNote;
       }
@@ -78,7 +78,7 @@ function App() {
 
       function playNote() {
         let howlerIndexClick = arrayNotes.findIndex((x) => x.note === click);
-        howlerIndexClick += 29;
+        /* howlerIndexClick += 29; */
         console.log(howlerIndexClick);
 
         sound.play(howlerIndexClick.toString());
@@ -101,7 +101,7 @@ function App() {
 
       // doing these below I give the pressed keyboard key the same index of the object audio key
       let howlerIndex = KEYBOARD_KEYS.indexOf(key);
-      howlerIndex += 29;
+      /* howlerIndex += 29; */
       const keyboardKeysIndex = KeyDataIndex.indexOf(key);
       console.log(keyboardKeysIndex);
       console.log(howlerIndex);
