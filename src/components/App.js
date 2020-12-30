@@ -13,7 +13,7 @@ import Products from "./Products";
 
 function App() {
   let { volume, setVolume } = useContext(SoundContext);
-  let [sound, setSound] = useState();
+  let {sound, setSound} = useContext(SoundContext);
 
   console.log({ volume });
 
@@ -26,8 +26,8 @@ function App() {
     "s",
     "e",
     "d",
-    "r",
     "f",
+    "t",
     "g",
     "z",
     "h",
@@ -50,7 +50,7 @@ function App() {
   useEffect(() => {
     
     let sound = new Howl({
-      src: ["./Piano01/piano-one.mp3"],
+      src: ["./Piano01/piano-02.mp3"],
       onload() {
         console.log("Sound file has been loaded.");
         soundEngine();
@@ -63,9 +63,9 @@ function App() {
 
 
     const soundEngine = function () {
-      const lengthNote = 2000;
+      const lengthNote = 4000;
       let timeIndex = 0;
-      for (let i = 29; i <= 82; i++) {
+      for (let i = 0; i <= 96; i++) {
         sound["_sprite"][i] = [timeIndex, lengthNote];
         timeIndex += lengthNote;
       }
@@ -78,7 +78,7 @@ function App() {
 
       function playNote() {
         let howlerIndexClick = arrayNotes.findIndex((x) => x.note === click);
-        howlerIndexClick += 29;
+       /*  howlerIndexClick += 29; */
         console.log(howlerIndexClick);
 
         sound.play(howlerIndexClick.toString());

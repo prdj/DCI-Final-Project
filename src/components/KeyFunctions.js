@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 
 const Next = styled.button`
   width: 30px;
@@ -50,22 +50,44 @@ function KeyFunction() {
   const [boxSize, setboxSize] = useState(200);
   console.log(boxSize);
 
+  const handleUserKeyPress = useCallback((event) => {
+    const {keyCode} = event;
+
+    console.log(event);
+
+    if (keyCode === 37) {
+      return decrementOctave()
+    } 
+
+    if (keyCode === 39) {
+      return incrementOctave()
+    } 
+    
+  }, [count]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleUserKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleUserKeyPress);
+    };
+  }, [handleUserKeyPress]);
+
   const decrementOctave = () => {
     if (count <= 1) {
       setCount(0);
       setPosition(test.octavePosition[0]);
       setboxSize(test.boxSize[0]);
-    } else if (count > 1) {
+    } else if (count) {
       setCount(count - 1);
       setPosition(test.octavePosition[count - 1]);
       setboxSize(test.boxSize[count - 1]);
     }
   };
 
-
   const incrementOctave = () => {
     if (count > 7) {
-      console.log('the end');
+      console.log("the end");
       setCount(count);
       setPosition(test.octavePosition[count]);
       setboxSize(test.boxSize[count]);
@@ -76,36 +98,14 @@ function KeyFunction() {
     }
   };
 
-
-  useEffect(()=>{
-  
-  document.addEventListener('keyup', (e) => {
-    console.log(e.key)
-
-    e.preventDefault();
-    if (!e.repeat)
-      
-      if (e.key === 'ArrowLeft')
-        return  decrementOctave()  
-      
-      if (e.key === 'ArrowRight'){
-       
-        return  incrementOctave()
-      }
-    });
-
-  }, []);
-  
-  
-
   const KeysOn = styled.div`
     border: 3px solid blue;
     width: ${boxSize}px;
     height: 65px;
     position: relative;
-    top: -69px;
+    top: -71px;
     left: ${position}px;
-    z-index: 10;
+    z-index: 1;
   `;
 
   return (
