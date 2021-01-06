@@ -29,14 +29,22 @@ const useStyles = makeStyles({
 });
 
 const Volume = () => {
-  /* const [value, setValue] = React.useState(30); */
-  let { volume, setVolume } = useContext(SoundContext);
 
   const classes = useStyles();
+  /* const [value, setValue] = React.useState(30); */
+  const [value, setValue] = React.useState(0.4);
+  let { volume, setVolume } = useContext(SoundContext);
+
   const handleChange = (event, newValue) => {
-    setVolume(newValue);
+    setValue(newValue);
+   /*  setVolume(newValue) */
   };
 
+  /* const handleChange = (event, newValue) => {
+    console.log({volume})
+    setVolume(newValue);
+  }; */
+console.log(`rerendering`)
   return (
     <div className={classes.root}>
       <Typography
@@ -70,9 +78,9 @@ const Volume = () => {
               color: "black",
             }}
             orientation="vertical"
-            value={volume}
+            value={value}
             valueLabelDisplay="auto"
-            onChange={handleChange}
+            onChangeCommitted={handleChange}
             aria-labelledby="continuous-slider"
             min={0}
             step={0.01}

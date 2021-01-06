@@ -44,11 +44,11 @@ function KeyFunction() {
   };
 
   const [count, setCount] = useState(2);
-  console.log(count);
+/*   console.log(count); */
   const [position, setPosition] = useState(340);
-  console.log(position);
+  /* console.log(position); */
   const [boxSize, setboxSize] = useState(200);
-  console.log(boxSize);
+ /*  console.log(boxSize); */
 
   const handleUserKeyPress = useCallback((event) => {
     const {keyCode} = event;
@@ -66,10 +66,10 @@ function KeyFunction() {
   }, [count]);
 
   useEffect(() => {
-    window.addEventListener("keydown", handleUserKeyPress);
+    window.addEventListener("keypress", handleUserKeyPress);
 
     return () => {
-      window.removeEventListener("keydown", handleUserKeyPress);
+      window.removeEventListener("keypress", handleUserKeyPress);
     };
   }, [handleUserKeyPress]);
 

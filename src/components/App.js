@@ -11,15 +11,14 @@ import Homepage from "./Homepage";
 import Nav from "./Nav";
 import Products from "./Products";
 
+
+
 function App() {
   let { volume, setVolume } = useContext(SoundContext);
-  let {sound, setSound} = useContext(SoundContext);
+  let { sound, setSound } = useContext(SoundContext);
 
-  console.log({ volume });
-
-  //let KeyDataIndex = Object.keys(KeyData);
-  /* let audio */
-
+ /*  console.log({ volume });
+  console.log(sound) */
   const KEYBOARD_KEYS = [
     "a",
     "w",
@@ -48,7 +47,6 @@ function App() {
   }, [volume]);
 
   useEffect(() => {
-    
     let sound = new Howl({
       src: ["./Piano01/piano-02.mp3"],
       onload() {
@@ -60,7 +58,6 @@ function App() {
       },
     });
     setSound(sound);
-
 
     const soundEngine = function () {
       const lengthNote = 4000;
@@ -78,15 +75,9 @@ function App() {
 
       function playNote() {
         let howlerIndexClick = arrayNotes.findIndex((x) => x.note === click);
-       /*  howlerIndexClick += 29; */
-        console.log(howlerIndexClick);
+      /*   console.log(howlerIndexClick); */
 
         sound.play(howlerIndexClick.toString());
-
-        /* const audio = new Audio(`hohner_keys/piano_${click}.wav`);
-      console.log(audio)
-      audio.currentTime=0
-      audio.play().catch(() => void 0);  */
       }
       playNote();
     });
@@ -101,54 +92,39 @@ function App() {
 
       // doing these below I give the pressed keyboard key the same index of the object audio key
       let howlerIndex = KEYBOARD_KEYS.indexOf(key);
-      howlerIndex += 29;
+      /* howlerIndex += 29; */
       const keyboardKeysIndex = KeyDataIndex.indexOf(key);
       console.log(keyboardKeysIndex);
       console.log(howlerIndex);
 
-      /* const finito = KeyData[keyboardKeysIndex].audio.play(); */
       const noteAudio = document.getElementsByTagName("button");
       const NoteForClass = noteAudio[keyboardKeysIndex];
-      /*  console.log(NoteForClass); */
 
       function playNote() {
         NoteForClass.value.length === 1
           ? NoteForClass.classList.add("activeWhite")
           : NoteForClass.classList.add("activeBlack");
-        //KeyData[key].audio.play()
-        sound.play(howlerIndex.toString());
 
-        /* audio = new Audio(`hohner_keys/piano_${finito.note}.wav`);
-      console.log(audio)
-      audio.currentTime=0.1;
-      audio.volume= 0.3;
-      e.preventDefault();
-      audio.play().catch(() => void 0); */
+        sound.play();
       }
       if (keyboardKeysIndex > -1) playNote();
     });
 
     document.addEventListener("keyup", (e) => {
       if (e.repeat) return;
-      //Mapping keyboard
+
       const key = e.key;
-      /*  console.log(key) */
+
       const keyboardKeysIndex = KeyDataIndex.indexOf(key);
-      /* const finito = arrayNotes[keyboardKeysIndex] */
 
       const noteAudio = document.getElementsByTagName("button");
       const NoteForClass = noteAudio[keyboardKeysIndex];
-      /*  console.log(NoteForClass); */
 
       if (!NoteForClass) return;
 
       function stopNote() {
         NoteForClass.classList.remove("activeWhite") ||
           NoteForClass.classList.remove("activeBlack");
-        //KeyData[key].audio.pause()
-        /*  console.log(audio)
-        audio.pause();
-        audio.currentTime=0; */
         sound.stop();
       }
 
