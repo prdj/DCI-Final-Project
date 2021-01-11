@@ -7,6 +7,8 @@ import { arrayNotes } from "./Format";
 import "./Style.css";
 import "../scss/App.scss";
 
+
+
 import Homepage from "./Homepage";
 import Nav from "./Nav";
 import Products from "./Products";
@@ -16,6 +18,8 @@ import Products from "./Products";
 function App() {
   let { volume, setVolume } = useContext(SoundContext);
   let { sound, setSound } = useContext(SoundContext);
+
+  
 
  /*  console.log({ volume });
   console.log(sound) */
@@ -71,7 +75,7 @@ function App() {
 
     document.addEventListener("mousedown", (e) => {
       const click = e.target.value;
-      console.log(click);
+    
 
       function playNote() {
         let howlerIndexClick = arrayNotes.findIndex((x) => x.note === click);

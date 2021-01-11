@@ -66,10 +66,10 @@ function KeyFunction() {
   }, [count]);
 
   useEffect(() => {
-    window.addEventListener("keypress", handleUserKeyPress);
+    window.addEventListener("keydown", handleUserKeyPress);
 
     return () => {
-      window.removeEventListener("keypress", handleUserKeyPress);
+      window.removeEventListener("keydown", handleUserKeyPress);
     };
   }, [handleUserKeyPress]);
 

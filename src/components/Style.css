@@ -1,9 +1,9 @@
+
 button.activeWhite{
-        background: #CCC;    
+        background: rgb(186, 204, 231);    
 }
 
 button.activeBlack{
-        background: #333;
+        background: rgb(186, 204, 231);
  
 } 
-
