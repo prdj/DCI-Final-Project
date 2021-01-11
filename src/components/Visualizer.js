@@ -17,8 +17,9 @@ class Visualizer extends Component {
   componentDidMount() {
     this.myP5 = new p5(this.Sketch, this.myRef.current);
     let context = this.context;
-    this.setState({ volume: context.volume });
-    console.log(context.volume);
+    this.setState({ volume: context.volume,
+    sound: context.sound });
+    console.log(context.sound);
   }
 
 
@@ -103,7 +104,7 @@ class Visualizer extends Component {
       p.background(100);
 
       let spectrum = fft.analyze();
-      let sizes = fft.linAverages(20);
+      /* let sizes = fft.linAverages(20); */
       
 
       for (let i = 0; i < spectrum.length; i++) {
@@ -113,7 +114,7 @@ class Visualizer extends Component {
         /* sizes[i] = p.map(sizes[i], 0, 255, 5.0, 23)    // scales the FFT values to a good size range
         p.rect(i * w, sizes[i], w, p.windowHeight - sizes[i]) */
       }
-      p.stroke(256);
+      p.stroke(20);
       p.fill(colorPalettes[selectedPalette][1]);
     };
 

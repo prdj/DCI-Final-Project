@@ -19,7 +19,7 @@ function App() {
   let { volume, setVolume } = useContext(SoundContext);
   let { sound, setSound } = useContext(SoundContext);
 
-  
+  console.log(sound)
 
  /*  console.log({ volume });
   console.log(sound) */
@@ -61,7 +61,7 @@ function App() {
         console.log("Error", e, msg);
       },
     });
-    setSound(sound);
+    
 
     const soundEngine = function () {
       const lengthNote = 4000;
@@ -71,7 +71,9 @@ function App() {
         timeIndex += lengthNote;
       }
       sound.play("");
+      
     };
+    console.log(sound)
 
     document.addEventListener("mousedown", (e) => {
       const click = e.target.value;
