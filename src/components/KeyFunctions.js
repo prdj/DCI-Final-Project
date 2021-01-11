@@ -1,5 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
-import styled from "styled-components";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
+import styled from 'styled-components';
 
 const Next = styled.button`
   width: 30px;
@@ -44,32 +48,37 @@ function KeyFunction() {
   };
 
   const [count, setCount] = useState(2);
-/*   console.log(count); */
+  /*   console.log(count); */
   const [position, setPosition] = useState(340);
   /* console.log(position); */
   const [boxSize, setboxSize] = useState(200);
- /*  console.log(boxSize); */
+  /*  console.log(boxSize); */
 
-  const handleUserKeyPress = useCallback((event) => {
-    const {keyCode} = event;
+  const handleUserKeyPress = useCallback(
+    (event) => {
+      const { keyCode } = event;
 
-    console.log(event);
+      console.log(event);
 
-    if (keyCode === 37) {
-      return decrementOctave()
-    } 
+      if (keyCode === 37) {
+        return decrementOctave();
+      }
 
-    if (keyCode === 39) {
-      return incrementOctave()
-    } 
-    
-  }, [count]);
+      if (keyCode === 39) {
+        return incrementOctave();
+      }
+    },
+    [count]
+  );
 
   useEffect(() => {
-    window.addEventListener("keydown", handleUserKeyPress);
+    window.addEventListener('keydown', handleUserKeyPress);
 
     return () => {
-      window.removeEventListener("keydown", handleUserKeyPress);
+      window.removeEventListener(
+        'keydown',
+        handleUserKeyPress
+      );
     };
   }, [handleUserKeyPress]);
 
@@ -87,7 +96,7 @@ function KeyFunction() {
 
   const incrementOctave = () => {
     if (count > 7) {
-      console.log("the end");
+      console.log('the end');
       setCount(count);
       setPosition(test.octavePosition[count]);
       setboxSize(test.boxSize[count]);

@@ -1,47 +1,52 @@
-import React, { useEffect, useContext, useState } from "react";
-import { Howl, Howler } from "howler";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { SoundContext } from "../context/SoundContext";
+import React, {
+  useEffect,
+  useContext,
+  useState,
+} from 'react';
+import { Howl, Howler } from 'howler';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import { SoundContext } from '../context/SoundContext';
 
-import { arrayNotes } from "./Format";
-import "./Style.css";
-import "../scss/App.scss";
+import { arrayNotes } from './Format';
+import './style.css';
+import '../scss/App.scss';
 
+import Homepage from './Homepage';
+import Nav from './Nav';
+import Products from './Products';
 
+const App = () => {
+  let {
+    volume,
+    setVolume,
+    sound,
+    setSound,
+    setKeyPressed,
+  } = useContext(SoundContext);
 
-import Homepage from "./Homepage";
-import Nav from "./Nav";
-import Products from "./Products";
-
-
-
-function App() {
-  let { volume, setVolume } = useContext(SoundContext);
-  let { sound, setSound } = useContext(SoundContext);
-
-  
-
- /*  console.log({ volume });
-  console.log(sound) */
   const KEYBOARD_KEYS = [
-    "a",
-    "w",
-    "s",
-    "e",
-    "d",
-    "f",
-    "t",
-    "g",
-    "z",
-    "h",
-    "u",
-    "j",
-    "k",
-    "o",
-    "l",
-    "p",
-    "ö",
-    "ä",
+    'a',
+    'w',
+    's',
+    'e',
+    'd',
+    'f',
+    't',
+    'g',
+    'z',
+    'h',
+    'u',
+    'j',
+    'k',
+    'o',
+    'l',
+    'p',
+    'ö',
+    'ä',
   ];
 
   let KeyDataIndex = KEYBOARD_KEYS;
@@ -52,41 +57,46 @@ function App() {
 
   useEffect(() => {
     let sound = new Howl({
-      src: ["./Piano01/piano-02.mp3"],
+      src: ['./Piano01/piano-02.mp3'],
       onload() {
-        console.log("Sound file has been loaded.");
+        console.log('Sound file has been loaded.');
         soundEngine();
       },
       onloaderror(e, msg) {
-        console.log("Error", e, msg);
+        console.log('Error', e, msg);
       },
     });
-    setSound(sound);
 
     const soundEngine = function () {
       const lengthNote = 4000;
       let timeIndex = 0;
       for (let i = 0; i <= 96; i++) {
-        sound["_sprite"][i] = [timeIndex, lengthNote];
+        sound['_sprite'][i] = [timeIndex, lengthNote];
         timeIndex += lengthNote;
       }
-      sound.play("");
+      sound.play('');
+      setSound(sound);
     };
 
-    document.addEventListener("mousedown", (e) => {
+    document.addEventListener('mousedown', (e) => {
       const click = e.target.value;
-    
 
       function playNote() {
-        let howlerIndexClick = arrayNotes.findIndex((x) => x.note === click);
-      /*   console.log(howlerIndexClick); */
+        let howlerIndexClick = arrayNotes.findIndex(
+          (x) => x.note === click
+        );
+        /*   console.log(howlerIndexClick); */
 
         sound.play(howlerIndexClick.toString());
+        setKeyPressed(howlerIndexClick.toString());
+        console.log(
+          `You pressed: ${howlerIndexClick.toString()}`
+        );
       }
       playNote();
     });
 
-    document.addEventListener("keydown", (e) => {
+    document.addEventListener('keydown', (e) => {
       e.preventDefault();
       /*   console.log(e) */
       if (e.repeat) return;
@@ -101,34 +111,39 @@ function App() {
       console.log(keyboardKeysIndex);
       console.log(howlerIndex);
 
-      const noteAudio = document.getElementsByTagName("button");
+      const noteAudio = document.getElementsByTagName(
+        'button'
+      );
       const NoteForClass = noteAudio[keyboardKeysIndex];
 
       function playNote() {
         NoteForClass.value.length === 1
-          ? NoteForClass.classList.add("activeWhite")
-          : NoteForClass.classList.add("activeBlack");
+          ? NoteForClass.classList.add('activeWhite')
+          : NoteForClass.classList.add('activeBlack');
 
         sound.play();
+        setSound(sound);
       }
       if (keyboardKeysIndex > -1) playNote();
     });
 
-    document.addEventListener("keyup", (e) => {
+    document.addEventListener('keyup', (e) => {
       if (e.repeat) return;
 
       const key = e.key;
 
       const keyboardKeysIndex = KeyDataIndex.indexOf(key);
 
-      const noteAudio = document.getElementsByTagName("button");
+      const noteAudio = document.getElementsByTagName(
+        'button'
+      );
       const NoteForClass = noteAudio[keyboardKeysIndex];
 
       if (!NoteForClass) return;
 
       function stopNote() {
-        NoteForClass.classList.remove("activeWhite") ||
-          NoteForClass.classList.remove("activeBlack");
+        NoteForClass.clsdassList.remove('activeWhite') ||
+          NoteForClass.classList.remove('activeBlack');
         sound.stop();
       }
 
@@ -143,12 +158,16 @@ function App() {
         <div className="main">
           <Switch>
             <Route exact path="/" component={Homepage} />
-            <Route exact path="/products" component={Products} />
+            <Route
+              exact
+              path="/products"
+              component={Products}
+            />
           </Switch>
         </div>
       </Router>
     </div>
   );
-}
+};
 
 export default App;

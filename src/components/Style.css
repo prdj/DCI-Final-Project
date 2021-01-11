@@ -1,9 +1,8 @@
-
-button.activeWhite{
-        background: rgb(186, 204, 231);    
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
-button.activeBlack{
-        background: rgb(186, 204, 231);
- 
-} 
+canvas {
+  display: block;
+}

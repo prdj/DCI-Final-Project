@@ -1,22 +1,18 @@
 import React from 'react';
-import Octave from './Octave'
+import Octave from './Octave';
 import Volume from './Volume';
 import Visualizer from './Visualizer';
 
-
-
-    const Products = ()=> {
-        return (
+const Products = () => {
+  return (
     <div>
-        <section> 
-            <Volume></Volume>
-            <Octave></Octave>
-            <Visualizer></Visualizer>
-        </section>
+      <section>
+        <Volume></Volume>
+        <Octave></Octave>
+        <Visualizer></Visualizer>
+      </section>
     </div>
-        )
-      
-        };
-    
-    export default Products;
+  );
+};
 
+export default Products;
