@@ -76,7 +76,7 @@ const Visualizer = () => {
     p.draw = () => {
       p.background(100);
       let spectrum = fft.analyze();
-      let sizes = fft.linAverages(20);
+     /*  let sizes = fft.linAverages(20); */
       for (let i = 0; i < spectrum.length; i++) {
         let amp = spectrum[i];
         let y = p.map(amp, 0, 280, p.windowHeight / 2.8, 0);
@@ -124,8 +124,8 @@ const Visualizer = () => {
   }, [volume, sound, keyPressed]);
 
 
-    let howlObject = sound._sprite;
-    console.log(howlObject);
+  /*   let howlObject = sound._sprite;
+    console.log(howlObject); */
 
   
  

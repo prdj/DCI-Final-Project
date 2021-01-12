@@ -25,8 +25,11 @@ const App = () => {
     setVolume,
     sound,
     setSound,
+    keyPressed,
     setKeyPressed,
   } = useContext(SoundContext);
+
+  console.log(keyPressed);
 
   const KEYBOARD_KEYS = [
     'a',
@@ -70,16 +73,18 @@ const App = () => {
     const soundEngine = function () {
       const lengthNote = 4000;
       let timeIndex = 0;
-      let soundPlaying;
+      
+      console.log(keyPressed)
       for (let i = 0; i <= 96; i++) {
         sound['_sprite'][i] = [timeIndex, lengthNote];
-        soundPlaying = sound['_sprite'][i]
         timeIndex += lengthNote;
-      }
-      sound.play('');
-      setSound(soundPlaying);
+        setSound(sound);
+        sound.play('')
+       
+      };
+    
     };
-    console.log(sound)
+    
  
     document.addEventListener('mousedown', (e) => {
       const click = e.target.value;
