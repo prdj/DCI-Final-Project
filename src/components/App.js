@@ -12,7 +12,7 @@ import {
 import { SoundContext } from '../context/SoundContext';
 
 import { arrayNotes } from './Format';
-import './style.css';
+import './Style.css';
 import '../scss/App.scss';
 
 import Homepage from './Homepage';
@@ -65,6 +65,26 @@ const App = () => {
       onloaderror(e, msg) {
         console.log('Error', e, msg);
       },
+      onplay() {
+        // Create analyzer
+        let analyser = Howler.ctx.createAnalyser();
+
+        // Connect master gain to analyzer
+        Howler.masterGain.connect(analyser);
+
+        // Creating output array (according to documentation https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API)
+        analyser.fftSize = 256;
+        var bufferLength = analyser.frequencyBinCount;
+        var dataArray = new Uint8Array(bufferLength);
+
+        // Get the Data array
+        analyser.getByteTimeDomainData(dataArray);
+        setSound(dataArray);
+
+        // Get the Data array
+        analyser.getByteTimeDomainData(dataArray);
+        setSound(dataArray);
+      },
     });
 
     const soundEngine = function () {
@@ -73,14 +93,13 @@ const App = () => {
       let soundPlaying;
       for (let i = 0; i <= 96; i++) {
         sound['_sprite'][i] = [timeIndex, lengthNote];
-        soundPlaying = sound['_sprite'][i]
+        soundPlaying = sound['_sprite'][i];
         timeIndex += lengthNote;
       }
+
       sound.play('');
-      setSound(soundPlaying);
     };
-    console.log(sound)
- 
+
     document.addEventListener('mousedown', (e) => {
       const click = e.target.value;
 
@@ -88,7 +107,7 @@ const App = () => {
         let howlerIndexClick = arrayNotes.findIndex(
           (x) => x.note === click
         );
-          console.log(howlerIndexClick);
+        console.log(howlerIndexClick);
 
         sound.play(howlerIndexClick.toString());
         setKeyPressed(howlerIndexClick.toString());
@@ -118,7 +137,7 @@ const App = () => {
         'button'
       );
       const NoteForClass = noteAudio[keyboardKeysIndex];
-         
+
       function playNote() {
         NoteForClass.value.length === 1
           ? NoteForClass.classList.add('activeWhite')
@@ -129,7 +148,6 @@ const App = () => {
         console.log(
           `You pressed: ${howlerIndex.toString()}`
         );
-        
       }
       if (keyboardKeysIndex > -1) playNote();
     });
@@ -149,7 +167,8 @@ const App = () => {
       if (!NoteForClass) return;
 
       function stopNote() {
-        NoteForClass.classList.remove('activeWhite') || NoteForClass.classList.remove('activeBlack');
+        NoteForClass.classList.remove('activeWhite') ||
+          NoteForClass.classList.remove('activeBlack');
         sound.stop();
       }
 
