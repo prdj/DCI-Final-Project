@@ -1,8 +1,6 @@
 import React from 'react';
-import './Style.css'
+import './Style.css';
 import styled from 'styled-components';
-
-
 
 const Black = styled.button`
   width: 10px;
@@ -13,7 +11,7 @@ const Black = styled.button`
   position: absolute;
   margin: 1px;
   margin-left: -6px;
-  :focus{
+  :focus {
     outline: none;
   }
   :active {
@@ -31,16 +29,19 @@ const White = styled.button`
   margin: 1px;
   margin-left: '-10px';
   box-sizing: border-box;
-  :focus{
+  :focus {
     outline: none;
   }
   :active {
-    background: #CCC;
+    background: #ccc;
   }
 `;
 
-const Note = ({color, note }) =>
-color === 'white' ?(<White value={note}/>) : (<Black value={note}/>);
-
+const Note = ({ color, note }) =>
+  color === 'white' ? (
+    <White value={note} />
+  ) : (
+    <Black value={note} />
+  );
 
 export default Note;
