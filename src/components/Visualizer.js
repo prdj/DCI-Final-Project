@@ -5,6 +5,7 @@ import p5 from "p5";
 import "../scss/App.scss";
 import "./style.css";
 import { SoundContext } from "../context/SoundContext";
+import { Howl, Howler } from 'howler';
 
 const Visualizer = () => {
   const myRef = useRef(null);

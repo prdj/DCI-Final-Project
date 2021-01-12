@@ -62,14 +62,6 @@ const App = () => {
         console.log('Sound file has been loaded.');
         soundEngine();
       },
-      onplay() {
-        let analyser = Howler.ctx.createAnalyser();
-        console.log(analyser)
-        Howler.masterGain.connect(analyser);
-        analyser.connect(Howler.ctx.destination);
-        analyser.fftSize = 1024;
-        analyser.smoothingTimeConstant = 0.5;
-      },
       onloaderror(e, msg) {
         console.log('Error', e, msg);
       },
@@ -78,16 +70,17 @@ const App = () => {
     const soundEngine = function () {
       const lengthNote = 4000;
       let timeIndex = 0;
+      let soundPlaying;
       for (let i = 0; i <= 96; i++) {
         sound['_sprite'][i] = [timeIndex, lengthNote];
+        soundPlaying = sound['_sprite'][i]
         timeIndex += lengthNote;
       }
       sound.play('');
-      
-      setSound(sound);
+      setSound(soundPlaying);
     };
     console.log(sound)
-
+ 
     document.addEventListener('mousedown', (e) => {
       const click = e.target.value;
 
