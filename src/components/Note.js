@@ -39,7 +39,7 @@ const White = styled.button`
 
 const Note = ({ color, note }) =>
   color === 'white' ? (
-    <White value={note} />
+    <White value={note}/>
   ) : (
     <Black value={note} />
   );

@@ -12,46 +12,34 @@ import { SoundContext } from "../context/SoundContext";
 const useStyles = makeStyles({
   root: {
     width: 50,
-    height: 200,
+    height: 180,
     display: "flex",
     flexDirection: "column-reverse",
     alignItems: "center",
     justifyContent: "space-evenly",
-    alignContent: "flex-start",
+    alignContent: "center",
     background: "white",
+    border: "3px solid #000",
     borderRadius: 3,
-    position: "relative",
-    margin: "auto",    
-    left:"220px",
-    top:"190px",
-    
+    position: "absolute",
+    margin: "auto",
+    left: "900px",
+    top: "155px",
   },
 });
 
 const Volume = () => {
-
   const classes = useStyles();
-  const [value, setValue] = React.useState(0.4);
+  /* const [value, setValue] = React.useState(0.4); */
   let { volume, setVolume } = useContext(SoundContext);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-   setVolume(newValue);
+    /* setValue(newValue); */
+    setVolume(newValue);
   };
 
   return (
     <div className={classes.root}>
-      <Typography
-        style={{
-          fontFamily: "Big Shoulders Stencil Text",
-          fontSize: 14,
-        }}
-        id="vertical-slider"
-        gutterBottom
-      >
-        Volume
-      </Typography>
-
       <Grid
         container
         style={{
@@ -67,7 +55,7 @@ const Volume = () => {
         <Grid item xs>
           <Slider
             style={{
-              height: 70,
+              height: 50,
               padding: "0 10px",
               color: "black",
             }}
@@ -75,7 +63,7 @@ const Volume = () => {
             value={volume}
             valueLabelDisplay="auto"
             onChangeCommitted={handleChange}
-            aria-labelledby="continuous-slider"
+            aria-labelledby="vertical-accessible-slider"
             min={0}
             step={0.01}
             max={1}
@@ -85,6 +73,18 @@ const Volume = () => {
           <VolumeDown />
         </Grid>
       </Grid>
+      <Typography
+        style={{
+          fontFamily: "Big Shoulders Stencil Text",
+          fontSize: 15,
+          padding:0,
+          margin:5,
+        }}
+        id="vertical-slider"
+        gutterBottom
+      >
+        Volume
+      </Typography>
     </div>
   );
 };

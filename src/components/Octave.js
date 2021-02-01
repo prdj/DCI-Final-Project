@@ -5,12 +5,14 @@ import Note from './Note';
 import KeyFunctions from './KeyFunctions';
 
 const PianoBody = styled.div`
-  margin: 40vh auto;
-  height: 79px;
-  width: 1200px;
-  border-radius: 5px;
+  position: absolute;
+  left:200px;
+  top:400px;
+  height: 80px;
+  width: 1110px;
+  border-radius: 3px;
   background-color: ${(props) =>
-    props.primary ? '#FFA630' : '#6c2506'};
+    props.primary ? '#6c2506' : '#1C1C1C'};
 `;
 
 const Wrapper = styled.div`
@@ -31,11 +33,12 @@ const Octave = () => (
       <PianoBody>
         <Wrapper>
           <div>
-            {arrayNotes.map((element) => (
+            {arrayNotes.slice(1).map((element) => (
               <Note
                 key={element.note}
                 color={element.color}
                 note={element.note}
+                pitchNumber={element.pitchNumber}
               />
             ))}
           </div>
@@ -44,7 +47,7 @@ const Octave = () => (
       </PianoBody>
     </section>
 
-    <section>
+{/*     <section>
       <PianoBody primary>
         <Wrapper>
           <div>
@@ -74,7 +77,7 @@ const Octave = () => (
           </div>
         </Wrapper>
       </Pianosecundary>
-    </section>
+    </section> */}
   </div>
 );
 

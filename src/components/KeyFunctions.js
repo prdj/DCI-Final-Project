@@ -10,8 +10,8 @@ const Next = styled.button`
   height: 20px;
   top: -48px;
   left: 20px;
-  background: yellow;
-  border: dashed red 7px;
+  background: #f3c54c;
+  border: dashed #5c6f6f 7px;
   border-radius: 2px;
   position: relative;
   box-sizing: border-box;
@@ -19,7 +19,7 @@ const Next = styled.button`
     outline: none;
   }
   :active {
-    background: black;
+    background: #1C1C1C;
   }
 `;
 
@@ -28,8 +28,8 @@ const Previous = styled.button`
   height: 21px;
   left: 10px;
   top: -48px;
-  background: yellow;
-  border: dashed red 8px;
+  background: #f3c54c;
+  border: dashed #5c6f6f 8px;
   border-radius: 2px;
   position: relative;
   box-sizing: border-box;
@@ -37,7 +37,7 @@ const Previous = styled.button`
     outline: none;
   }
   :active {
-    background: black;
+    background: #1C1C1C;
   }
 `;
 
@@ -108,6 +108,7 @@ function KeyFunction() {
   };
 
   const KeysOn = styled.div`
+    pointer-events: none;
     border: 3px solid blue;
     width: ${boxSize}px;
     height: 65px;
