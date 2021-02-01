@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef, useEffect } from "react";
+import React, { createContext, useState, useRef, useEffect, useCallback  } from "react";
 
 // CONTEXT
 // PROVIDER
@@ -28,10 +28,10 @@ const SoundProvider = (props) => {
   })();   
   },[value])
  */
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     let lastType = event.target.value
-    setValue(lastType);
-  };
+    setValue(lastType)
+  },[value]);
  
 
   let sharedData = {

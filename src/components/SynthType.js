@@ -35,8 +35,8 @@ export default function RadioButtonsGroup() {
     <FormControl component="fieldset">
       <FormLabel component="legend">Wave</FormLabel>
       <RadioGroup
-        aria-label="gender"
-        name="gender1"
+       /*  aria-label="gender"
+        name="gender1" */
         value={value}
         onChange={handleChange}
       >
