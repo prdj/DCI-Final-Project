@@ -1,4 +1,9 @@
-import React, { createContext, useState, useRef, useEffect } from "react";
+import React, {
+  createContext,
+  useState,
+  useRef,
+  useEffect,
+} from 'react';
 
 // CONTEXT
 // PROVIDER
@@ -18,10 +23,9 @@ const SoundProvider = (props) => {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
 
-  console.log({ analyser });
-  
+  console.log(`VALUE CONTEXTJS`, { value });
 
-/*   useEffect(()=>{
+  /*   useEffect(()=>{
   (async function(){
     console.log({value})
     setValue(value)
@@ -29,10 +33,10 @@ const SoundProvider = (props) => {
   },[value])
  */
   const handleChange = (event) => {
-    let lastType = event.target.value
+    let lastType = event.target.value;
+    console.log(`IM UPDATING VALUE`, lastType);
     setValue(lastType);
   };
- 
 
   let sharedData = {
     handleChange,
