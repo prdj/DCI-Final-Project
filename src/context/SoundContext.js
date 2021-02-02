@@ -1,4 +1,6 @@
 import React, { createContext, useState, useRef, useEffect, useCallback  } from "react";
+import { arrayNotes } from "../components/Format";
+
 
 // CONTEXT
 // PROVIDER
@@ -7,8 +9,8 @@ export const SoundContext = createContext(); // like createStore in Redux
 
 const SoundProvider = (props) => {
   let iWantToGetWrapped = props.children; // app component
-
-  const [value, setValue] = useState('sine');
+  const [oscillatorNode, setocillatorNode] = useState(arrayNotes);
+  /* const [value, setValue] = useState('sine'); */
   const [bufferLength, setBufferLength] = useState();
   const [dataArray, setDataArray] = useState();
   const [analyser, setAnalyser] = useState();
@@ -18,26 +20,17 @@ const SoundProvider = (props) => {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
 
-  console.log({ analyser });
   
-
-/*   useEffect(()=>{
-  (async function(){
-    console.log({value})
-    setValue(value)
-  })();   
-  },[value])
- */
-  const handleChange = useCallback((event) => {
+/*   const handleChange = (event) => {
     let lastType = event.target.value
-    setValue(lastType)
-  },[value]);
+    setValue(lastType);
+
+  }; */
  
 
   let sharedData = {
-    handleChange,
-    value,
-    ...setValue,
+    oscillatorNode,
+    setocillatorNode,
     bufferLength,
     setBufferLength,
     dataArray,
@@ -59,6 +52,7 @@ const SoundProvider = (props) => {
       {iWantToGetWrapped}
     </SoundContext.Provider>
   );
+  
 };
 
 export default SoundProvider;

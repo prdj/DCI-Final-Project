@@ -8,7 +8,6 @@ import Framer from './Framer';
 import RadioButtons from './SynthType';
 
 
-
 const Products = (props) => {
   const { draw, ...rest } = props;
   const canvasRef = useCanvas(draw);
