@@ -57,7 +57,7 @@ export default function RadioButtonsGroup() {
     setocillatorNode(oscNodes);
   }
   useEffect(() => {
- 
+ console.log("Value Changes")
     /* createNoteArray(); */
     inicializeNodeArray()
     

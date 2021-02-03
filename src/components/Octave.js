@@ -42,8 +42,6 @@ const Octave = () => {
     setBufferLength,
     setDataArray,
   } = useContext(SoundContext);
-  
-
   let osc
   let synth = [];
 
@@ -84,6 +82,13 @@ const Octave = () => {
   }, []);
 
   const cretingNodeKey = (e) => {
+    console.log(oscillatorNode)
+    if(synth.length>0){
+      synth.forEach(node=>{
+        setTimeout(()=>{   node.disconnect()},200 )
+     
+      })
+    }
     //const keyboarPcNumberkeys = (e.detail || e.which).toString();
     e.preventDefault();
     if (e.repeat) return;
@@ -104,10 +109,10 @@ const Octave = () => {
     console.log(oscillatorNode[indexMap]);
 
     // CREATING THE ARRAY OSCILLATOR NODE
-
+  synth=[]
     oscillatorNode.forEach((item,index) => {
       osc = audioCtx.createOscillator()
-      osc.type= oscillatorNode[indexMap].type
+      osc.type= item.type
       osc.frequency.value = item.pitchNumber;
       console.log(osc.frequency.value)
       osc.start()
@@ -162,7 +167,6 @@ const Octave = () => {
     document.addEventListener("keydown", cretingNodeKey);
 
     //KEY UP EVENT && STOP FUNC
-
     document.addEventListener("keyup", (e) => {
       if (e.repeat) return;
       const key = e.key;
@@ -176,9 +180,12 @@ const Octave = () => {
       function stopNote() {
         NoteForClass.classList.remove("activeWhite") ||
           NoteForClass.classList.remove("activeBlack");
-          setTimeout(() => {
+          synth.forEach(node=>{
+            node.disconnect()
+          })
+         /*  setTimeout(() => {
             synth[indexMap].disconnect();
-          }, 100);
+          }, 100); */
         
       }
 
