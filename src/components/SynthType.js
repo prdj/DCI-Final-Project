@@ -31,7 +31,7 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 export default function RadioButtonsGroup() {
   const classes = useStyles();
 
-  let {oscillatorNode, setocillatorNode } = useContext(
+  let { setocillatorNode } = useContext(
     SoundContext
   );
 
@@ -51,14 +51,13 @@ export default function RadioButtonsGroup() {
       /* let osc = audioCtx.createOscillator();
       osc.frequency.value = item.pitchNumber; */
       item.type = value;
-      console.log(value);
       /* osc.start(); */
       oscNodes.push(item);
     });
     setocillatorNode(oscNodes);
   }
   useEffect(() => {
-    console.log('hello')
+ 
     /* createNoteArray(); */
     inicializeNodeArray()
     

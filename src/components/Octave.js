@@ -9,6 +9,7 @@ import { SoundContext } from "../context/SoundContext";
 // SETTING UP AUDIO CONTEXT API
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+// CREATING THE PIANO
 const PianoBody = styled.div`
   position: absolute;
   left: 200px;
@@ -27,25 +28,24 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Pianosecundary = styled(PianoBody)`
+/* const Pianosecundary = styled(PianoBody)`
   background-color: #000000;
-`;
+`; */
 
 const Octave = () => {
   let {
     oscillatorNode,
-    setocillatorNode,
     sound,
-    value,
     volume,
     setKeyPressed,
     setAnalyser,
     setBufferLength,
     setDataArray,
   } = useContext(SoundContext);
-  /*   let oscillatorNode = []; */
+  
 
-  let el
+  let osc
+  let synth = [];
 
   const KEYBOARD_KEYS = [
     "a",
@@ -76,8 +76,8 @@ const Octave = () => {
       function playNote() {
         let IndexClick = arrayNotes.findIndex((x) => x.note === click);
         setKeyPressed(IndexClick.toString());
-        console.log(`You pressed: ${IndexClick.toString()}`);
-      }
+/*         console.log(`You pressed: ${IndexClick.toString()}`);
+ */      }
 
       playNote();
     });
@@ -101,33 +101,32 @@ const Octave = () => {
     const noteAudio = document.getElementsByTagName("button");
     const NoteForClass = noteAudio[keyboardKeysIndex];
     let indexMap = Index.toString();
-    /* console.log(oscillatorNode[indexMap]); */
+    console.log(oscillatorNode[indexMap]);
 
     // CREATING THE ARRAY OSCILLATOR NODE
-  
-   /*  console.log(oscillatorNode) */
-    
-    el = audioCtx.createOscillator()
-    el.type= oscillatorNode[indexMap].type
-    el.frequency.value = oscillatorNode[indexMap].pitchNumber;
-    console.log(el)
-    el.start()
 
-  /*   console.log(oscillatorNode[indexMap]); */
+    oscillatorNode.forEach((item,index) => {
+      osc = audioCtx.createOscillator()
+      osc.type= oscillatorNode[indexMap].type
+      osc.frequency.value = item.pitchNumber;
+      console.log(osc.frequency.value)
+      osc.start()
+      synth.push(osc)
+    });
 
-    /* console.log(oscillatorNode); */
+    console.log(synth[indexMap])
 
     const gainNode = audioCtx.createGain();
     /* console.log({volume}) */
     gainNode.gain.value = volume;
 
-    el.connect(gainNode);
+    synth[indexMap].connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
     // CREATING ANALYSER
 
     const analyser = audioCtx.createAnalyser();
-    el.connect(analyser);
+    synth[indexMap].connect(analyser);
     analyser.fftSize = 256;
 
    /*  console.log({ analyser }); */
@@ -149,7 +148,7 @@ const Octave = () => {
         : NoteForClass.classList.add("activeBlack");
 
       setKeyPressed(Index.toString());
-      console.log(`You pressed: ${Index.toString()}`);
+      /* console.log(`You pressed: ${Index.toString()}`); */
     }
 
     if (keyboardKeysIndex > -1 && Index > -1) playNote();
@@ -178,7 +177,7 @@ const Octave = () => {
         NoteForClass.classList.remove("activeWhite") ||
           NoteForClass.classList.remove("activeBlack");
           setTimeout(() => {
-            el.disconnect();
+            synth[indexMap].disconnect();
           }, 100);
         
       }

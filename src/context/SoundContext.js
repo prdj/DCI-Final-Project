@@ -20,7 +20,6 @@ const SoundProvider = (props) => {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
 
-  
 /*   const handleChange = (event) => {
     let lastType = event.target.value
     setValue(lastType);
