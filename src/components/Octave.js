@@ -42,10 +42,10 @@ const Octave = () => {
     setBufferLength,
     setDataArray,
   } = useContext(SoundContext);
-  
 
-  let osc
+  let osc;
   let synth = [];
+  let gainNode;
 
   const KEYBOARD_KEYS = [
     "a",
@@ -76,8 +76,9 @@ const Octave = () => {
       function playNote() {
         let IndexClick = arrayNotes.findIndex((x) => x.note === click);
         setKeyPressed(IndexClick.toString());
-/*         console.log(`You pressed: ${IndexClick.toString()}`);
- */      }
+        /*         console.log(`You pressed: ${IndexClick.toString()}`);
+         */
+      }
 
       playNote();
     });
@@ -105,31 +106,34 @@ const Octave = () => {
 
     // CREATING THE ARRAY OSCILLATOR NODE
 
-    oscillatorNode.forEach((item,index) => {
-      osc = audioCtx.createOscillator()
-      osc.type= oscillatorNode[indexMap].type
-      osc.frequency.value = item.pitchNumber;
-      console.log(osc.frequency.value)
-      osc.start()
-      synth.push(osc)
+    oscillatorNode.forEach((item, index) => {
+      osc = audioCtx.createOscillator();
+      osc.type = oscillatorNode[indexMap].type;
+      osc.frequency.value = oscillatorNode[indexMap].pitchNumber;
+      item.osc = osc;
+      //osc.start();
+      console.log();
+      synth.push(item);
     });
 
-    console.log(synth[indexMap])
+    synth[indexMap].osc.start();
 
-    const gainNode = audioCtx.createGain();
+    console.log(synth[indexMap].osc);
+
+    gainNode = audioCtx.createGain();
     /* console.log({volume}) */
     gainNode.gain.value = volume;
 
-    synth[indexMap].connect(gainNode);
+    synth[indexMap].osc.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
     // CREATING ANALYSER
 
     const analyser = audioCtx.createAnalyser();
-    synth[indexMap].connect(analyser);
+    synth[indexMap].osc.connect(analyser);
     analyser.fftSize = 256;
 
-   /*  console.log({ analyser }); */
+    /*  console.log({ analyser }); */
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     analyser.minDecibels = -90;
@@ -160,6 +164,7 @@ const Octave = () => {
     // KEY DOWN EVENT && PLAY NOTE
 
     document.addEventListener("keydown", cretingNodeKey);
+   
 
     //KEY UP EVENT && STOP FUNC
 
@@ -176,20 +181,17 @@ const Octave = () => {
       function stopNote() {
         NoteForClass.classList.remove("activeWhite") ||
           NoteForClass.classList.remove("activeBlack");
-          setTimeout(() => {
-            synth[indexMap].disconnect();
-          }, 100);
-        
+        setTimeout(() => {
+          synth[indexMap].osc.disconnect();
+        }, 100);
       }
 
       if (keyboardKeysIndex > -1) stopNote();
     });
   }, []);
 
-
   useEffect(() => {
-    
-   /*  console.log({ volume });
+    /*  console.log({ volume });
     console.log({ value }); */
   }, [sound, volume]);
 
