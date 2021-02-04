@@ -42,9 +42,8 @@ const Octave = () => {
     setBufferLength,
     setDataArray,
   } = useContext(SoundContext);
-  let osc
+  let osc;
   let synth = [];
-
   const KEYBOARD_KEYS = [
     "a",
     "w",
@@ -67,6 +66,8 @@ const Octave = () => {
   ];
   let KeyDataIndex = KEYBOARD_KEYS;
 
+
+  // MOUSE EVENT && PLAY NOTE
   useEffect(() => {
     document.addEventListener("mousedown", (e) => {
       const click = e.target.value;
@@ -74,27 +75,26 @@ const Octave = () => {
       function playNote() {
         let IndexClick = arrayNotes.findIndex((x) => x.note === click);
         setKeyPressed(IndexClick.toString());
-/*         console.log(`You pressed: ${IndexClick.toString()}`);
- */      }
+      }
 
       playNote();
     });
   }, []);
 
+  // KEY DOWN EVENT && PLAY NOTE FUNCTION
   const cretingNodeKey = (e) => {
-    console.log(oscillatorNode)
-    if(synth.length>0){
-      synth.forEach(node=>{
-        setTimeout(()=>{   node.disconnect()},200 )
-     
-      })
+    if (synth.length > 0) {
+      synth.forEach((node) => {
+        setTimeout(() => {
+          node.disconnect();
+        }, 1000);
+      });
     }
     //const keyboarPcNumberkeys = (e.detail || e.which).toString();
     e.preventDefault();
     if (e.repeat) return;
 
     //MAPPING KEYS
-
     const key = e.key;
     let Index = KEYBOARD_KEYS.indexOf(key);
     if (Index === -1) {
@@ -102,43 +102,42 @@ const Octave = () => {
     }
 
     const keyboardKeysIndex = KeyDataIndex.indexOf(key);
-
     const noteAudio = document.getElementsByTagName("button");
     const NoteForClass = noteAudio[keyboardKeysIndex];
     let indexMap = Index.toString();
     console.log(oscillatorNode[indexMap]);
 
     // CREATING THE ARRAY OSCILLATOR NODE
-  synth=[]
-    oscillatorNode.forEach((item,index) => {
-      osc = audioCtx.createOscillator()
-      osc.type= item.type
+   
+    synth = [];
+    oscillatorNode.forEach((item, index) => {
+      osc = audioCtx.createOscillator();
+      osc.type = item.type;
       osc.frequency.value = item.pitchNumber;
-      console.log(osc.frequency.value)
-      osc.start()
-      synth.push(osc)
+      /* console.log(osc.frequency.value); */
+      osc.start();
+      synth.push(osc);
     });
+    console.log(synth[indexMap]);
 
-    console.log(synth[indexMap])
-
+    //MASTER VOLUME
     const gainNode = audioCtx.createGain();
-    /* console.log({volume}) */
-    gainNode.gain.value = volume;
+   /*  gainNode.gain.value = volume; */
+    // gainNode.gain.linearRampToValueAtTime(0.9, audioCtx.currentTime + 1);
+    gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
 
-    synth[indexMap].connect(gainNode);
     gainNode.connect(audioCtx.destination);
-
     // CREATING ANALYSER
-
+    
     const analyser = audioCtx.createAnalyser();
     synth[indexMap].connect(analyser);
     analyser.fftSize = 256;
-
-   /*  console.log({ analyser }); */
+    /*  console.log({ analyser }); */
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     analyser.minDecibels = -90;
     analyser.maxDecibels = 0;
+    analyser.connect(gainNode);
 
     // SENDING REQUEST'S AWAY TO THE VIZUALISER
     setBufferLength(bufferLength);
@@ -146,24 +145,19 @@ const Octave = () => {
     setAnalyser(analyser);
 
     //BACKGROUND KEYS PIANO
-
     function playNote() {
       NoteForClass.value.length === 1
         ? NoteForClass.classList.add("activeWhite")
         : NoteForClass.classList.add("activeBlack");
 
       setKeyPressed(Index.toString());
-      /* console.log(`You pressed: ${Index.toString()}`); */
     }
 
     if (keyboardKeysIndex > -1 && Index > -1) playNote();
   };
 
-  // MOUSE EVENT && PLAY NOTE
-
   useEffect(() => {
-    // KEY DOWN EVENT && PLAY NOTE
-
+    // KEY DOWN EVENT
     document.addEventListener("keydown", cretingNodeKey);
 
     //KEY UP EVENT && STOP FUNC
@@ -180,24 +174,16 @@ const Octave = () => {
       function stopNote() {
         NoteForClass.classList.remove("activeWhite") ||
           NoteForClass.classList.remove("activeBlack");
-          synth.forEach(node=>{
-            node.disconnect()
-          })
-         /*  setTimeout(() => {
-            synth[indexMap].disconnect();
-          }, 100); */
-        
+        synth.forEach((node) => {
+          node.disconnect();
+        });
       }
-
       if (keyboardKeysIndex > -1) stopNote();
     });
   }, []);
 
-
   useEffect(() => {
-    
-   /*  console.log({ volume });
-    console.log({ value }); */
+     console.log({ volume });
   }, [sound, volume]);
 
   return (

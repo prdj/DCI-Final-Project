@@ -1,19 +1,137 @@
-import React, { Component } from 'react'
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 import { SoundContext } from "../context/SoundContext";
-import classes from '*.module.css';
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Slider from "@material-ui/core/Slider";
+import Typography from "@material-ui/core/Typography";
+import { FullscreenExit } from "@material-ui/icons";
 
-const useStyle = makeStyles({
-    root:{
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    alignContent: "center",
+    width: 60 + theme.spacing(3) * 2,
+    position: "absolute",
+    margin: "auto",
+    left: "320px",
+    top: "155px",
+  },
+  inerRoot: {
+    display: "flex",
+    flexDirection: "row",
+  }
+}));
 
-    }
-})
+
+
+const PrettoSlider = withStyles({
+  root: {
+    color: "#52af77",
+    height: 8,
+  },
+  thumb: {
+    height: 24,
+    width: 24,
+    backgroundColor: "#fff",
+    border: "2px solid currentColor",
+    marginTop: -8,
+    marginLeft: -12,
+    "&:focus, &:hover, &$active": {
+      boxShadow: "inherit",
+    },
+  },
+  active: {},
+  valueLabel: {
+    left: "calc(-50% + 4px)",
+  },
+  track: {
+    height: 8,
+    borderRadius: 4,
+  },
+  rail: {
+    height: 8,
+    borderRadius: 4,
+  },
+})(Slider);
 
 export default function ENV() {
-    return (
-        <div className={classes.root}>
-            
-            
-        </div>
-    )
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <div className={classes.inerRoot}>
+      <Typography
+        style={{
+          fontFamily: "Big Shoulders Stencil Text",
+          fontSize: 12,
+          padding: 5,
+          margin: 2,
+        }}
+        gutterBottom
+      >
+        Attack
+      </Typography>
+      <PrettoSlider
+        valueLabelDisplay="auto"
+        aria-label="pretto slider"
+        defaultValue={20}
+      />
+      </div>
+      <div className={classes.inerRoot}>
+    
+      <Typography
+        style={{
+          fontFamily: "Big Shoulders Stencil Text",
+          fontSize: 12,
+          padding: 5,
+          margin: 2,
+        }}
+        gutterBottom
+      >
+        Decay
+      </Typography>
+      <PrettoSlider
+        valueLabelDisplay="auto"
+        aria-label="pretto slider"
+        defaultValue={20}
+      />
+      </div>
+      <div className={classes.inerRoot}>
+      <Typography
+        style={{
+          fontFamily: "Big Shoulders Stencil Text",
+          fontSize: 12,
+          padding: 5,
+          margin: 2,
+        }}
+        gutterBottom
+      >
+        Sustain
+      </Typography>
+      <PrettoSlider
+        valueLabelDisplay="auto"
+        aria-label="pretto slider"
+        defaultValue={20}
+      />
+      </div>
+      <div className={classes.inerRoot}>
+      <Typography
+        style={{
+          fontFamily: "Big Shoulders Stencil Text",
+          fontSize: 12,
+          padding: 5,
+          margin: 2,
+        }}
+        gutterBottom
+      >
+        Release
+      </Typography>
+      <PrettoSlider
+        valueLabelDisplay="auto"
+        aria-label="pretto slider"
+        defaultValue={20}
+      />
+      </div>
+    </div>
+  );
 }
