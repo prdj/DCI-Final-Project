@@ -9,21 +9,32 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     alignContent: "center",
-    width: 60 + theme.spacing(3) * 2,
+    width: 130,
+    height:180,
     position: "absolute",
     margin: "auto",
-    left: "320px",
+    left: "300px",
     top: "155px",
+    border: "3px solid #000",
+    borderRadius: 3,
+    padding:5,
   },
   inerRoot: {
     display: "flex",
+    justifyContent: "space-evenly",
     flexDirection: "row",
+    padding:0,
+    marginLeft:-5,
+    /* border: "2px solid #000",
+    borderRadius: 2,
+    width:140,
+    padding:5, */
+
+
   }
 }));
-
-
 
 const PrettoSlider = withStyles({
   root: {
@@ -74,7 +85,10 @@ export default function ENV() {
       <PrettoSlider
         valueLabelDisplay="auto"
         aria-label="pretto slider"
-        defaultValue={20}
+        defaultValue={0.5}
+        min={0}
+        step={0.01}
+        max={1}
       />
       </div>
       <div className={classes.inerRoot}>
@@ -93,7 +107,10 @@ export default function ENV() {
       <PrettoSlider
         valueLabelDisplay="auto"
         aria-label="pretto slider"
-        defaultValue={20}
+        defaultValue={0.5}
+        min={0}
+        step={0.01}
+        max={1}
       />
       </div>
       <div className={classes.inerRoot}>
@@ -111,7 +128,10 @@ export default function ENV() {
       <PrettoSlider
         valueLabelDisplay="auto"
         aria-label="pretto slider"
-        defaultValue={20}
+        defaultValue={0.5}
+        min={0}
+        step={0.01}
+        max={1}
       />
       </div>
       <div className={classes.inerRoot}>
@@ -129,8 +149,11 @@ export default function ENV() {
       <PrettoSlider
         valueLabelDisplay="auto"
         aria-label="pretto slider"
-        defaultValue={20}
-      />
+        defaultValue={0.5}
+        min={0}
+        step={0.01}
+        max={1}      
+        />
       </div>
     </div>
   );

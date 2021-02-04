@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     alignContent: "center",
-    background: "white",
+    background: "",
     border: "3px solid #000",
     borderRadius: 3,
     height: 180,
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     margin: "auto",
     left: "470px",
     top: "155px",
-  },
+  }
 });
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -66,21 +66,34 @@ export default function RadioButtonsGroup() {
   return (
     <div className={classes.root}>
       <FormControl component="fieldset">
-        <FormLabel component="legend">Wave</FormLabel>
+        <FormLabel style={{
+          fontFamily: "Big Shoulders Stencil Text",
+          fontSize: 20,
+          marginLeft:35,
+          padding:0,
+          color:'black'
+      
+        }} 
+        component="legend">Wave</FormLabel>
         <RadioGroup
-          /*  aria-label="gender"
-        name="gender1" */
+          aria-label="gender"
+          name="gender1"
           value={value}
-         onClick={(e)=> setValue(e.target.value)}
+          onClick={(e)=> setValue(e.target.value)}
         >
           <FormControlLabel 
-          value="sine" 
-          control={<Radio />} 
-          label="sine" />
+            value="sine" 
+            control={<Radio 
+            color ="primary"/>} 
+            label="sine" 
+          />
+
           <FormControlLabel 
-          value="square" 
-          control={<Radio />} 
-          label="square" />
+            value="square" 
+            control={<Radio />} 
+            label="square" 
+          />
+
           <FormControlLabel
             value="triangle"
             control={<Radio />}
@@ -91,6 +104,7 @@ export default function RadioButtonsGroup() {
             control={<Radio />}
             label="sawtooth"
           />
+          
         </RadioGroup>
       </FormControl>
     </div>
