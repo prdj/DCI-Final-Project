@@ -122,8 +122,6 @@ const Octave = () => {
 
     //MASTER VOLUME
     const gainNode = audioCtx.createGain();
-    console.log(volume)
-
     volume.forEach((x, index) => {
       gainNode.gain.value = x.vol;
       // gainNode.gain.linearRampToValueAtTime(0.9, audioCtx.currentTime + 1);
