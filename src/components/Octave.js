@@ -8,7 +8,8 @@ import { SoundContext } from "../context/SoundContext";
 
 // SETTING UP AUDIO CONTEXT API
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
+const biquadFilter = audioCtx.createBiquadFilter();
+const convolver = audioCtx.createConvolver();
 // CREATING THE PIANO
 const PianoBody = styled.div`
   position: absolute;
@@ -66,6 +67,7 @@ const Octave = () => {
   ];
   let KeyDataIndex = KEYBOARD_KEYS;
 
+  console.log(volume)
 
   // MOUSE EVENT && PLAY NOTE
   useEffect(() => {
@@ -87,7 +89,7 @@ const Octave = () => {
       synth.forEach((node) => {
         setTimeout(() => {
           node.disconnect();
-        }, 1000);
+        }, 1500);
       });
     }
     //const keyboarPcNumberkeys = (e.detail || e.which).toString();
@@ -108,13 +110,11 @@ const Octave = () => {
     console.log(oscillatorNode[indexMap]);
 
     // CREATING THE ARRAY OSCILLATOR NODE
-   
     synth = [];
     oscillatorNode.forEach((item, index) => {
       osc = audioCtx.createOscillator();
       osc.type = item.type;
       osc.frequency.value = item.pitchNumber;
-      /* console.log(osc.frequency.value); */
       osc.start();
       synth.push(osc);
     });
@@ -122,13 +122,17 @@ const Octave = () => {
 
     //MASTER VOLUME
     const gainNode = audioCtx.createGain();
-   /*  gainNode.gain.value = volume; */
-    // gainNode.gain.linearRampToValueAtTime(0.9, audioCtx.currentTime + 1);
-    gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+    console.log(volume)
 
-    gainNode.connect(audioCtx.destination);
-    // CREATING ANALYSER
+    volume.forEach((x, index) => {
+      gainNode.gain.value = x.vol;
+      // gainNode.gain.linearRampToValueAtTime(0.9, audioCtx.currentTime + 1);
+      gainNode.gain.setValueAtTime(x.vol, audioCtx.currentTime +1);
+      gainNode.connect(audioCtx.destination);
+  
+    });
     
+    // CREATING ANALYSER
     const analyser = audioCtx.createAnalyser();
     synth[indexMap].connect(analyser);
     analyser.fftSize = 256;
@@ -138,6 +142,18 @@ const Octave = () => {
     analyser.minDecibels = -90;
     analyser.maxDecibels = 0;
     analyser.connect(gainNode);
+
+    //BIQUAD FILTER
+    //biquadFilter.connect(gainNode);
+    //convolver.connect(gainNode);
+
+    //Manipulate the Biquad
+    /* biquadFilter.type = "lowshelf";
+    biquadFilter.frequency.value = 4000;
+    biquadFilter.gain.value = 55;
+    biquadFilter.detune.value = 100;
+     */
+    
 
     // SENDING REQUEST'S AWAY TO THE VIZUALISER
     setBufferLength(bufferLength);
@@ -149,14 +165,14 @@ const Octave = () => {
       NoteForClass.value.length === 1
         ? NoteForClass.classList.add("activeWhite")
         : NoteForClass.classList.add("activeBlack");
-
       setKeyPressed(Index.toString());
     }
-
     if (keyboardKeysIndex > -1 && Index > -1) playNote();
   };
 
   useEffect(() => {
+
+
     // KEY DOWN EVENT
     document.addEventListener("keydown", cretingNodeKey);
 
@@ -165,12 +181,11 @@ const Octave = () => {
       if (e.repeat) return;
       const key = e.key;
       const keyboardKeysIndex = KeyDataIndex.indexOf(key);
-
       const noteAudio = document.getElementsByTagName("button");
       const NoteForClass = noteAudio[keyboardKeysIndex];
       let indexMap = keyboardKeysIndex.toString();
       if (!NoteForClass && !oscillatorNode) return;
-
+      
       function stopNote() {
         NoteForClass.classList.remove("activeWhite") ||
           NoteForClass.classList.remove("activeBlack");
@@ -183,6 +198,7 @@ const Octave = () => {
   }, []);
 
   useEffect(() => {
+
      console.log({ volume });
   }, [sound, volume]);
 
@@ -205,38 +221,6 @@ const Octave = () => {
           <KeyFunctions></KeyFunctions>
         </PianoBody>
       </section>
-
-      {/*     <section>
-      <PianoBody primary>
-        <Wrapper>
-          <div>
-            {arrayNotes.map((element) => (
-              <Note
-                key={element.note}
-                color={element.color}
-                note={element.note}
-              />
-            ))}
-          </div>
-        </Wrapper>
-      </PianoBody>
-    </section>
-
-    <section>
-      <Pianosecundary>
-        <Wrapper>
-          <div>
-            {arrayNotes.map((element) => (
-              <Note
-                key={element.note}
-                color={element.color}
-                note={element.note}
-              />
-            ))}
-          </div>
-        </Wrapper>
-      </Pianosecundary>
-    </section> */}
     </div>
   );
 };

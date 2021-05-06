@@ -12,28 +12,22 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     alignContent: "center",
     width: 130,
-    height:180,
+    height: 180,
     position: "absolute",
     margin: "auto",
-    left: "300px",
+    left: "550px",
     top: "155px",
     border: "3px solid #000",
     borderRadius: 3,
-    padding:5,
+    padding: 5,
   },
   inerRoot: {
     display: "flex",
     justifyContent: "space-evenly",
     flexDirection: "row",
-    padding:0,
+    padding: 0,
     marginLeft:-5,
-    /* border: "2px solid #000",
-    borderRadius: 2,
-    width:140,
-    padding:5, */
-
-
-  }
+  },
 }));
 
 const PrettoSlider = withStyles({
@@ -71,88 +65,87 @@ export default function ENV() {
   return (
     <div className={classes.root}>
       <div className={classes.inerRoot}>
-      <Typography
-        style={{
-          fontFamily: "Big Shoulders Stencil Text",
-          fontSize: 12,
-          padding: 5,
-          margin: 2,
-        }}
-        gutterBottom
-      >
-        Attack
-      </Typography>
-      <PrettoSlider
-        valueLabelDisplay="auto"
-        aria-label="pretto slider"
-        defaultValue={0.5}
-        min={0}
-        step={0.01}
-        max={1}
-      />
+        <Typography
+          style={{
+            fontFamily: "Big Shoulders Stencil Text",
+            fontSize: 12,
+            padding: 5,
+            margin: 2,
+          }}
+          gutterBottom
+        >
+          Attack
+        </Typography>
+        <PrettoSlider
+          valueLabelDisplay="auto"
+          aria-label="pretto slider"
+          defaultValue={0.5}
+          min={0}
+          step={0.01}
+          max={1}
+        />
       </div>
       <div className={classes.inerRoot}>
-    
-      <Typography
-        style={{
-          fontFamily: "Big Shoulders Stencil Text",
-          fontSize: 12,
-          padding: 5,
-          margin: 2,
-        }}
-        gutterBottom
-      >
-        Decay
-      </Typography>
-      <PrettoSlider
-        valueLabelDisplay="auto"
-        aria-label="pretto slider"
-        defaultValue={0.5}
-        min={0}
-        step={0.01}
-        max={1}
-      />
+        <Typography
+          style={{
+            fontFamily: "Big Shoulders Stencil Text",
+            fontSize: 12,
+            padding: 5,
+            margin: 2,
+          }}
+          gutterBottom
+        >
+          Decay
+        </Typography>
+        <PrettoSlider
+          valueLabelDisplay="auto"
+          aria-label="pretto slider"
+          defaultValue={0.5}
+          min={0}
+          step={0.01}
+          max={1}
+        />
       </div>
       <div className={classes.inerRoot}>
-      <Typography
-        style={{
-          fontFamily: "Big Shoulders Stencil Text",
-          fontSize: 12,
-          padding: 5,
-          margin: 2,
-        }}
-        gutterBottom
-      >
-        Sustain
-      </Typography>
-      <PrettoSlider
-        valueLabelDisplay="auto"
-        aria-label="pretto slider"
-        defaultValue={0.5}
-        min={0}
-        step={0.01}
-        max={1}
-      />
+        <Typography
+          style={{
+            fontFamily: "Big Shoulders Stencil Text",
+            fontSize: 12,
+            padding: 5,
+            margin: 2,
+          }}
+          gutterBottom
+        >
+          Sustain
+        </Typography>
+        <PrettoSlider
+          valueLabelDisplay="auto"
+          aria-label="pretto slider"
+          defaultValue={0.5}
+          min={0}
+          step={0.01}
+          max={1}
+        />
       </div>
       <div className={classes.inerRoot}>
-      <Typography
-        style={{
-          fontFamily: "Big Shoulders Stencil Text",
-          fontSize: 12,
-          padding: 5,
-          margin: 2,
-        }}
-        gutterBottom
-      >
-        Release
-      </Typography>
-      <PrettoSlider
-        valueLabelDisplay="auto"
-        aria-label="pretto slider"
-        defaultValue={0.5}
-        min={0}
-        step={0.01}
-        max={1}      
+        <Typography
+          style={{
+            fontFamily: "Big Shoulders Stencil Text",
+            fontSize: 12,
+            padding: 5,
+            margin: 2,
+          }}
+          gutterBottom
+        >
+          Release
+        </Typography>
+        <PrettoSlider
+          valueLabelDisplay="auto"
+          aria-label="pretto slider"
+          defaultValue={0.5}
+          min={0}
+          step={0.01}
+          max={1}
         />
       </div>
     </div>

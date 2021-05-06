@@ -17,7 +17,7 @@ const Canvas = (props) => {
 
     analyser.getByteFrequencyData(dataArray);
 
-    ctx.fillStyle = "rgba(0, 255, 0, 0.8)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0)";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     ctx.lineWidth = 6;
@@ -68,12 +68,12 @@ const Canvas = (props) => {
       id="myCanvas1"
       
       style={{ 
-        background: `rgba(0, 255, 0, 0.8)`,
-        width:175,
+        background: '',
+        width:180,
         height:60,
         position:"absolute",
-        top:218,
-        left:545,
+        top:215,
+        left:760,
         border:'3px solid #000',
         transform: 'rotate(90deg)',
         

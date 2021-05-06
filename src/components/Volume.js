@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Slider from "@material-ui/core/Slider";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -8,6 +8,8 @@ import VolumeUp from "@material-ui/icons/VolumeUp";
 import "../scss/App.scss";
 import "./Style.css";
 import { SoundContext } from "../context/SoundContext";
+import { arrayNotes } from "./Format";
+
 
 const useStyles = makeStyles({
   root: {
@@ -23,19 +25,37 @@ const useStyles = makeStyles({
     borderRadius: 3,
     position: "absolute",
     margin: "auto",
-    left: "900px",
+    left: "1100px",
     top: "155px",
   },
 });
 
 const Volume = () => {
   const classes = useStyles();
-  /* const [value, setValue] = React.useState(0.4); */
-  let { volume, setVolume } = useContext(SoundContext);
+  
+  let { setVolume } = useContext(SoundContext);
+  
+
+  const [value, setValue] = useState(1);
+
+  const inicializeNodeVolume = () => {
+
+    let volumeArray = [];
+    arrayNotes.forEach((x, index) => {
+
+      x.vol = value;
+      volumeArray.push(x);
+    });
+    setVolume(volumeArray);
+  }
+
+  useEffect(()=> {
+    inicializeNodeVolume()
+  }, [value]);
 
   const handleChange = (event, newValue) => {
-    /* setValue(newValue); */
-    setVolume(newValue);
+   
+    setValue(newValue);
   };
 
   return (
@@ -60,9 +80,9 @@ const Volume = () => {
               color: "black",
             }}
             orientation="vertical"
-            value={volume}
+            value={value}
             valueLabelDisplay="auto"
-            onChangeCommitted={handleChange}
+            onChange={handleChange}
             aria-labelledby="vertical-accessible-slider"
             min={0}
             step={0.01}

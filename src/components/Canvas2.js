@@ -67,7 +67,7 @@ const Canvas2 = (props) => {
         width: 200,
         height: 180,
         top: 155,
-        left: 680,
+        left: 890,
         border: "3px solid #000",
       }}
       ref={canvasRef}

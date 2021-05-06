@@ -10,11 +10,10 @@ export const SoundContext = createContext(); // like createStore in Redux
 const SoundProvider = (props) => {
   let iWantToGetWrapped = props.children; // app component
   const [oscillatorNode, setocillatorNode] = useState(arrayNotes);
-  /* const [value, setValue] = useState('sine'); */
   const [bufferLength, setBufferLength] = useState();
   const [dataArray, setDataArray] = useState();
   const [analyser, setAnalyser] = useState();
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(arrayNotes);
   const [sound, setSound] = useState();
   const [keyPressed, setKeyPressed] = useState();
   const canvasRef = useRef(null);

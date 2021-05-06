@@ -6,7 +6,8 @@ import Canvas2 from "./Canvas2";
 import useCanvas from "./useCanvas";
 import Framer from './Framer';
 import RadioButtons from './SynthType';
-import ENV from './ENV'
+import ENV from './ENV';
+import LFO from './LFO';
 
 
 const Products = (props) => {
@@ -14,6 +15,7 @@ const Products = (props) => {
   const canvasRef = useCanvas(draw);
   return (
     <div>
+      <LFO></LFO>
       <ENV></ENV>
       <RadioButtons></RadioButtons>
       <Framer></Framer>
@@ -24,7 +26,7 @@ const Products = (props) => {
         width: 200,
         height: 180,
         top: 155,
-        left: 680,
+        left: 890,
         zIndex:0,
         
       }} />

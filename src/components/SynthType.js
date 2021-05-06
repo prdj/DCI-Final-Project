@@ -12,6 +12,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-around",
     alignItems: "center",
     alignContent: "center",
     background: "",
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
     width: 120,
     position: "absolute",
     margin: "auto",
-    left: "470px",
+    left: "690px",
     top: "155px",
   }
 });
