@@ -24,7 +24,6 @@ const SoundProvider = (props) => {
     setValue(lastType);
 
   }; */
- 
 
   let sharedData = {
     oscillatorNode,

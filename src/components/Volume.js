@@ -103,7 +103,7 @@ const Volume = () => {
         id="vertical-slider"
         gutterBottom
       >
-        Volume
+        VCA
       </Typography>
     </div>
   );

@@ -80,7 +80,7 @@ const Canvas = (props) => {
       }}
       ref={canvasRef}
     />
-    <div className="label1">oscillos..</div>
+    <div className="label1">VCO</div>
     </div>
   );
 };

@@ -54,9 +54,13 @@ export default function RadioButtonsGroup() {
       item.type = value;
       /* osc.start(); */
       oscNodes.push(item);
+      
     });
+    
     setocillatorNode(oscNodes);
   }
+
+
   useEffect(() => {
  console.log("Value Changes")
     /* createNoteArray(); */
