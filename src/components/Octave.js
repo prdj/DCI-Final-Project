@@ -2,7 +2,7 @@ import { arrayNotes } from "./Format";
 import styled from "styled-components";
 import Note from "./Note";
 import KeyFunctions from "./KeyFunctions";
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { SoundContext } from "../context/SoundContext";
 
 // SETTING UP AUDIO CONTEXT API
@@ -35,6 +35,12 @@ const Wrapper = styled.div`
 
 const Octave = () => {
   let {
+    velocity,
+    setVelocity,
+    note,
+    setNote,
+    command,
+    setCommand,
     oscillatorNode,
     volume,
     setKeyPressed,
@@ -70,8 +76,8 @@ const Octave = () => {
   ];
   let KeyDataIndex = KEYBOARD_KEYS;
 
-  // MOUSE EVENT && PLAY NOTE
-  useEffect(() => {
+// MOUSE EVENT && PLAY NOTE
+useEffect(() => {
     document.addEventListener("mousedown", (e) => {
       const click = e.target.value;
       function playNote() {
@@ -80,9 +86,40 @@ const Octave = () => {
       }
       playNote();
     });
-  }, []);
+}, []);
 
-  
+
+// MIDIAccess 
+// Called whenever a new MIDI port is added or an existing port changes state.
+
+  navigator.requestMIDIAccess()
+  .then(midiAccess => {
+    Array.from(midiAccess.inputs).forEach(input => {
+      input[1].onmidimessage = (msg) => {
+
+        setCommand(msg.data[0]);
+        setNote(msg.data[1]);
+        setVelocity((msg.data.length > 2) ? msg.data[2] : 0);
+        
+      }
+    })
+  });
+
+
+  navigator.requestMIDIAccess()
+  .then(function(midiAccess) {
+
+     // Get lists of available MIDI controllers
+     const inputs = midiAccess.inputs.values();
+     const outputs = midiAccess.outputs.values();
+
+     midiAccess.onstatechange = function(e) {
+
+       // Print information about the (dis)connected MIDI controller
+       console.log(e.port.name, e.port.manufacturer, e.port.state);
+     };
+  });
+
 
 // KEY DOWN EVENT && PLAY NOTE FUNCTION
   const creatingNodeKey = (e) => {  
@@ -93,6 +130,7 @@ const Octave = () => {
   
     //MAPPING KEYBOARD KEYS
   const key = e.key;
+  console.log(key)
     let Index = KEYBOARD_KEYS.indexOf(key);
     if (Index === -1) {
     return;
@@ -142,13 +180,14 @@ const Octave = () => {
     const analyser = audioCtx.createAnalyser();
     activeSynths[indexMap].connect(analyser);
     //activeSynths.connect(analyser.indexMap);
-
     analyser.fftSize = 256;
     /*  console.log({ analyser }); */
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     analyser.minDecibels = -90;
     analyser.maxDecibels = 0;
+    
+    //Playing from the synth array
     synth[indexMap].connect(amp);
 
     //BIQUAD FILTER
@@ -226,6 +265,7 @@ const Octave = () => {
                   color={element.color}
                   note={element.note}
                   pitchNumber={element.pitchNumber}
+                  number={element.number}
                 />
               ))}
             </div>

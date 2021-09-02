@@ -9,6 +9,9 @@ export const SoundContext = createContext(); // like createStore in Redux
 
 const SoundProvider = (props) => {
   let iWantToGetWrapped = props.children; // app component
+  const [command, setCommand] = useState(arrayNotes);
+  const [note, setNote] = useState(arrayNotes);
+  const [velocity, setVelocity] = useState(arrayNotes);
   const [oscillatorNode, setocillatorNode] = useState(arrayNotes);
   const [bufferLength, setBufferLength] = useState();
   const [dataArray, setDataArray] = useState();
@@ -25,7 +28,15 @@ const SoundProvider = (props) => {
 
   }; */
 
+
+
   let sharedData = {
+    velocity,
+    setVelocity,
+    note,
+    setNote,
+    command,
+    setCommand,
     oscillatorNode,
     setocillatorNode,
     bufferLength,
