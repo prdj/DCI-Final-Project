@@ -10,7 +10,7 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const biquadFilter = audioCtx.createBiquadFilter();
 const convolver = audioCtx.createConvolver();
 
-// CREATING The PIANO
+// CREATING The keyboard
 const PianoBody = styled.div`
   position: absolute;
   left: 200px;
@@ -37,8 +37,8 @@ const Octave = () => {
   let {
     velocity,
     setVelocity,
-    note,
-    setNote,
+    midiNote,
+    setMidiNote,
     command,
     setCommand,
     oscillatorNode,
@@ -48,12 +48,14 @@ const Octave = () => {
     setBufferLength,
     setDataArray,
   } = useContext(SoundContext);
-  
+
   let out = audioCtx.destination;
   let vco;
   let synth = [];
   let activeSynths = [];
   let lastSynthsPlayed = [];
+  let synthForMidi = [];
+  let activeSynthsMidi = [];
   const KEYBOARD_KEYS = [
     "a",
     "w",
@@ -76,8 +78,8 @@ const Octave = () => {
   ];
   let KeyDataIndex = KEYBOARD_KEYS;
 
-// MOUSE EVENT && PLAY NOTE
-useEffect(() => {
+  // MOUSE EVENT && PLAY NOTE
+  useEffect(() => {
     document.addEventListener("mousedown", (e) => {
       const click = e.target.value;
       function playNote() {
@@ -86,96 +88,117 @@ useEffect(() => {
       }
       playNote();
     });
-}, []);
+  }, []);
 
-
-// MIDIAccess 
-// Called whenever a new MIDI port is added or an existing port changes state.
-
-  navigator.requestMIDIAccess()
-  .then(midiAccess => {
-    Array.from(midiAccess.inputs).forEach(input => {
+  // MIDIAccess called whenever a new MIDI port is added or an existing port changes state.
+  navigator.requestMIDIAccess().then((midiAccess) => {
+    Array.from(midiAccess.inputs).forEach((input) => {
       input[1].onmidimessage = (msg) => {
-
         setCommand(msg.data[0]);
-        setNote(msg.data[1]);
-        setVelocity((msg.data.length > 2) ? msg.data[2] : 0);
-        
-      }
-    })
+        setMidiNote(msg.data[1]);
+        setVelocity(msg.data.length > 2 ? msg.data[2] : 0);
+      
+      };
+    });
   });
 
+  function noteOn(){
+    if(command === 144){
+      activeSynthsMidi[midiNote - 20] = synthForMidi[midiNote - 20];
+      console.log(activeSynthsMidi)
+      console.log('note on');
+    }
+  }
 
-  navigator.requestMIDIAccess()
-  .then(function(midiAccess) {
+  function noteOff () {
+    if (command === 128) {
+      console.log('noteOff');
+    }
+  }
 
-     // Get lists of available MIDI controllers
-     const inputs = midiAccess.inputs.values();
-     const outputs = midiAccess.outputs.values();
+  useEffect(()=> {
+   noteOn()
+   noteOff()
+  }, [midiNote, command])
+  
+  
+  // FILLING ARRAY SYNTH WITH THE OSCILLATOR NODES FOR ALL KEYS
+/*   synthForMidi = [];
+  oscillatorNode.forEach((item, index) => {
+    vco = audioCtx.createOscillator();
+    vco.volume = item.vol;
+    vco.index = index++;
+    vco.type = item.type;
+    vco.frequency.value = item.pitchNumber;
+    synthForMidi.push(vco);
+    vco.start();
+  });
+  activeSynthsMidi[midiNote - 20] = synthForMidi[midiNote - 20];
 
-     midiAccess.onstatechange = function(e) {
+  console.log(activeSynthsMidi) */;
 
-       // Print information about the (dis)connected MIDI controller
-       console.log(e.port.name, e.port.manufacturer, e.port.state);
-     };
+  navigator.requestMIDIAccess().then(function (midiAccess) {
+    // Get lists of available MIDI controllers
+    const inputs = midiAccess.inputs.values();
+    const outputs = midiAccess.outputs.values();
+
+    midiAccess.onstatechange = function (e) {
+      // Print information about the (dis)connected MIDI controller
+      console.log(e.port.name, e.port.manufacturer, e.port.state);
+    };
   });
 
-
-// KEY DOWN EVENT && PLAY NOTE FUNCTION
-  const creatingNodeKey = (e) => {  
+  // KEY DOWN EVENT && PLAY NOTE FUNCTION
+  const creatingNodeKey = (e) => {
     e.preventDefault();
     //console.log({activeSynths})
     if (e.repeat) return;
-  
-  
+
     //MAPPING KEYBOARD KEYS
-  const key = e.key;
-  console.log(key)
+    const key = e.key;
+    //console.log(key);
     let Index = KEYBOARD_KEYS.indexOf(key);
     if (Index === -1) {
-    return;
-  }
-  const keyboardKeysIndex = KeyDataIndex.indexOf(key);
-  const noteAudio = document.getElementsByTagName("button");
-  const NoteForClass = noteAudio[keyboardKeysIndex];
-  let indexMap = Index.toString();
-  //console.log(oscillatorNode[indexMap]);
+      return;
+    }
+    const keyboardKeysIndex = KeyDataIndex.indexOf(key);
+    const noteAudio = document.getElementsByTagName("button");
+    const NoteForClass = noteAudio[keyboardKeysIndex];
+    let indexMap = Index.toString();
+    //console.log(oscillatorNode[indexMap]);
 
-  
-  // FILLING ARRAY SYNTH WITH THE OSCILLATOR NODES FOR ALL KEYS
-  synth = [];
-  oscillatorNode.forEach((item, index) => {
+    // FILLING ARRAY SYNTH WITH THE OSCILLATOR NODES FOR ALL KEYS
+    synth = [];
+    oscillatorNode.forEach((item, index) => {
       vco = audioCtx.createOscillator();
       vco.volume = item.vol;
       vco.index = index++;
       vco.type = item.type;
       vco.frequency.value = item.pitchNumber;
       synth.push(vco);
-      vco.start()
+      vco.start();
     });
 
-    // PLAYING  
+    // PLAYING
     //activeSynths.push(synth[indexMap]);
     //activeSynths.splice(3,0,synth[indexMap]);
-    activeSynths[indexMap] = synth[indexMap]
+    activeSynths[indexMap] = synth[indexMap];
 
-    let lastSynthsPlayed = activeSynths[activeSynths.length - 1]
+    let lastSynthsPlayed = activeSynths[activeSynths.length - 1];
     let indexOfActiveSynths = activeSynths.indexOf(lastSynthsPlayed);
-    console.log({indexOfActiveSynths});
+    //console.log({ indexOfActiveSynths });
     console.log(activeSynths);
 
     if (lastSynthsPlayed > -1) {
-   
       console.log(lastSynthsPlayed["index"]);
     }
     //activeSynths[indexMap].start();
 
-  
     //AMP - MASTER VOLUME CONTROL
-    const amp = new GainNode(audioCtx, {gain: synth[indexMap].volume});
+    const amp = new GainNode(audioCtx, { gain: synth[indexMap].volume });
     //amp.gain.value = synth[indexMap].volume;
     amp.connect(out);
-   
+
     // CREATING ANALYSER
     const analyser = audioCtx.createAnalyser();
     activeSynths[indexMap].connect(analyser);
@@ -186,7 +209,7 @@ useEffect(() => {
     const dataArray = new Uint8Array(bufferLength);
     analyser.minDecibels = -90;
     analyser.maxDecibels = 0;
-    
+
     //Playing from the synth array
     synth[indexMap].connect(amp);
 
@@ -216,12 +239,10 @@ useEffect(() => {
     if (keyboardKeysIndex > -1 && Index > -1) playNote();
   };
 
-
   useEffect(() => {
-    
     // KEY DOWN EVENT
     document.addEventListener("keydown", creatingNodeKey);
-  
+
     //KEY UP EVENT && STOP FUNC
     document.addEventListener("keyup", (e) => {
       if (e.repeat) return;
@@ -230,23 +251,22 @@ useEffect(() => {
       const noteAudio = document.getElementsByTagName("button");
       const NoteForClass = noteAudio[keyboardKeysIndex];
       let indexMap = keyboardKeysIndex.toString();
-      console.log(`keyup index`+` ${indexMap}`)
+      //console.log(`keyup index` + ` ${indexMap}`);
       if (!NoteForClass && !oscillatorNode) return;
-      
-          function stopNote() {
-            NoteForClass.classList.remove("activeWhite") ||
-            NoteForClass.classList.remove("activeBlack");
-            console.log(indexMap)           
-            activeSynths[indexMap].stop()
-            delete activeSynths[indexMap]
-              
-            synth.forEach((node) => {
-              node.stop()  
-            }); 
 
-          }
-          if (keyboardKeysIndex > -1) stopNote();
+      function stopNote() {
+        NoteForClass.classList.remove("activeWhite") ||
+          NoteForClass.classList.remove("activeBlack");
+        //console.log(indexMap);
+        activeSynths[indexMap].stop();
+        delete activeSynths[indexMap];
+
+        synth.forEach((node) => {
+          node.stop();
         });
+      }
+      if (keyboardKeysIndex > -1) stopNote();
+    });
   }, []);
 
   useEffect(() => {

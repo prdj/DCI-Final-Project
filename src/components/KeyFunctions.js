@@ -1,9 +1,5 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-} from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 
 const Next = styled.button`
   width: 30px;
@@ -19,7 +15,7 @@ const Next = styled.button`
     outline: none;
   }
   :active {
-    background: #1C1C1C;
+    background: #1c1c1c;
   }
 `;
 
@@ -37,7 +33,7 @@ const Previous = styled.button`
     outline: none;
   }
   :active {
-    background: #1C1C1C;
+    background: #1c1c1c;
   }
 `;
 
@@ -47,7 +43,7 @@ function KeyFunction() {
     boxSize: [200, 200, 200, 200, 200, 200, 200, 146],
   };
 
-  const [count, setCount] = useState(2);
+  const [counter, setCounter] = useState(2);
   /*   console.log(count); */
   const [position, setPosition] = useState(340);
   /* console.log(position); */
@@ -58,8 +54,6 @@ function KeyFunction() {
     (event) => {
       const { keyCode } = event;
 
-   /*    console.log(event); */
-
       if (keyCode === 37) {
         return decrementOctave();
       }
@@ -67,43 +61,42 @@ function KeyFunction() {
       if (keyCode === 39) {
         return incrementOctave();
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+
     },
-    [count]
+    [counter]
   );
 
   useEffect(() => {
-    window.addEventListener('keydown', handleUserKeyPress);
+    window.addEventListener("keydown", handleUserKeyPress);
 
     return () => {
-      window.removeEventListener(
-        'keydown',
-        handleUserKeyPress
-      );
+      window.removeEventListener("keydown", handleUserKeyPress);
     };
   }, [handleUserKeyPress]);
 
   const decrementOctave = () => {
-    if (count <= 1) {
-      setCount(0);
+    if (counter <= 1) {
+      setCounter(0);
       setPosition(test.octavePosition[0]);
       setboxSize(test.boxSize[0]);
-    } else if (count) {
-      setCount(count - 1);
-      setPosition(test.octavePosition[count - 1]);
-      setboxSize(test.boxSize[count - 1]);
+    } else if (counter) {
+      setCounter(counter - 1);
+      setPosition(test.octavePosition[counter - 1]);
+      setboxSize(test.boxSize[counter - 1]);
     }
   };
 
   const incrementOctave = () => {
-    if (count > 7) {
-      console.log('the end');
-      setCount(count);
-      setPosition(test.octavePosition[count]);
-      setboxSize(test.boxSize[count]);
-    } else if (count < 7) {
-      setCount(count + 1);
-      setPosition(test.octavePosition[count + 1]);
-      setboxSize(test.boxSize[count + 1]);
+    if (counter > 7) {
+      console.log("the end");
+      setCounter(counter);
+      setPosition(test.octavePosition[counter]);
+      setboxSize(test.boxSize[counter]);
+    } else if (counter < 7) {
+      setCounter(counter + 1);
+      setPosition(test.octavePosition[counter + 1]);
+      setboxSize(test.boxSize[counter + 1]);
     }
   };
 
